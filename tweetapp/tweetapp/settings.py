@@ -28,8 +28,8 @@ DEBUG = False #Changed from True to False.
 
 ALLOWED_HOSTS = [#For deployment, ur gonnachange this to whatever the website name is.
     'localhost',
-    '.twooter.com'
-    #'*', #Example of what i would put here based on my domain name.
+    '.twooter.com',
+    #Example of what i would put here based on my domain name.
                     #The . in front of it is a wildcard. so this accepts 'www.twooter.com' or 'twooter.com' or or 'www.fish.twooter.com', etc.
 ]
 
@@ -173,12 +173,7 @@ DEFAULT_FROM_EMAIL = 'Twooter Admin <noreply@twooter.com>'
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
-<<<<<<< HEAD
-
 # Heroku: Update database configuration from $DATABASE_URL.
-=======
-#Heroku update database config from $database_url.
->>>>>>> ee940b867b3b257cb21b5ccc5442809e3062f04c
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
