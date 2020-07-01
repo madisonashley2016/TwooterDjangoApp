@@ -1,0 +1,368 @@
+:root {
+    --main-background: #15202B;
+    --header-border: #3D5466;
+    --normal-border: #38444D;
+    --twoot-hover: #192734;
+    --content-text: #5F6E7C;
+    --twooter-blue-dark: #1DA1F2;
+    --twooter-blue-light: #1A91DA;
+    --search-background: #253341;
+}
+
+.messages-icon {
+    flex: 1 0;
+    max-width: 75px;
+    max-height: 75px;
+    border-radius: 50%;
+    margin: 10px 10px;
+}
+.messages-content-wrapper {
+    flex: 1;
+    max-width: 100%;
+    overflow: hidden;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.messages-content-time {
+    margin: 0 10px 0 0;
+    flex: 0 0 100px;
+}
+.messages-content-wrapper-inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0 10px;
+}
+.messages-content-authors {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.messages-content {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.private-message {
+    background: var(--header-border);
+    border-radius: 20px 20px 20px 0;
+    padding: 15px;
+    margin: 5px 10px 0 0;
+    word-break: break-word;
+}
+.my-private-message {
+    background: var(--twooter-blue-dark);
+    border-radius: 20px 20px 0 20px;
+    padding: 15px;
+    margin: 5px 10px;
+    word-break: break-word;
+}
+
+#new-message-button {
+    flex: 0 0 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 45px; height: 45px;
+    margin: 5px 10px;
+
+    border: 1px solid var(--twooter-blue-dark);
+    border-radius: 50%;
+    color: var(--twooter-blue-dark);
+    font-size: 20px;
+    transition: .25s; 
+}
+#new-message-button:hover {
+    background: var(--twoot-hover);
+ }
+
+.message-back-button-div {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+
+    border-bottom: 1px solid var(--header-border);
+    color: white;
+    background: var(--main-background);
+
+    position: sticky;
+    top: 0;
+    z-index: 900;
+}
+#message-info-header-div {
+    border-bottom: 4px solid var(--header-border);
+}
+
+
+.message-header-names {
+    padding: 0 15px;
+    font-size: 25px;
+    font-weight: 900;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* For the messge info page */
+.message-info-button {
+    flex: 0 0 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 45px; height: 45px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: .25s; 
+}
+.message-info-button:hover {
+    background: var(--twoot-hover);
+    text-decoration: none;
+}
+.message-info-button button {
+    color: var(--twooter-blue-dark);
+}
+.message-info-user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 5px 0 3px 0;
+    transition: .25s;
+    border-bottom: 1px solid var(--normal-border);
+}
+.message-info-user:hover {
+    background: var(--twoot-hover);
+}
+.message-info-content {
+    flex: 1;
+    padding: 5px 5px;
+}
+.message-info-follow-button {
+    background: var(--twooter-blue-dark);
+    border-radius: 25px;
+    padding: 5px 15px;
+    margin: 0 10px;
+}
+.message-info-follow-button button {
+    color: white;
+}
+.message-info-follow-button a {
+    color: white;
+    text-decoration: none;
+}
+
+.message-info-content #display-name {
+    color: white;
+    font-weight: bold;
+
+}
+.message-info-user .message-icon {
+    margin: 5px 10px;
+}
+.message-info-content #username {
+    color: var(--content-text);
+}
+
+#message-info-header-back-button {
+    flex: 0 0 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    width: 45px; height: 45px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: .25s; 
+}
+#message-info-header-back-button:hover {
+    background: var(--twoot-hover);
+    text-decoration: none;
+}
+#message-info-header-back-button button {
+    color: var(--twooter-blue-dark);
+}
+
+/* For the messages */
+.message-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.message-super-container-outer {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 50px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.message-super-container-outer::-webkit-scrollbar {
+    display: none;
+}
+
+.message-container-outer {
+    display: flex;
+    align-items: flex-end;
+    padding: 5px;
+
+}
+.message-container-inner {
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    
+}
+.my-message-container-inner {
+    display:flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+    
+}
+.message-icon {
+    flex: 1 0 auto;
+    max-width: 60px;
+    max-height: 60px;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+/* For the message input */
+#message-send-container-outer {
+    height: 50px;
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    background: var(--main-background);
+    border-bottom: 1px solid var(--normal-border);
+    border-top: 1px solid var(--header-border);
+}
+.message-send-container-input {
+    flex: 1;
+    position: relative;
+}
+.message-send {
+    color: white;
+    border: 1px solid var(--twooter-blue-dark);
+    border-radius: 25px;
+
+    width: 100%; height: 100%;
+    padding: 3px 10px;
+}
+.message-emoji-button {
+    position: absolute;
+    right: 7px; top: 0;
+    color: var(--twooter-blue-dark);
+    font-size: 20px;
+
+}
+.message-button {
+    padding: 0 15px;
+    font-size: 20px;
+    color: var(--twooter-blue-dark);
+}
+
+.modal-footer {
+    border: none;
+}
+.modal-content {
+    background: var(--main-background);
+}
+.modal-header {
+    border-bottom: 1px solid var(--header-border);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: white;
+}
+.modal-header h1 {
+    flex: 1;
+    font-weight: bold;
+    font-size: 25px;
+}
+.modal-header button {
+    font-size: 25px;
+    margin-right: 20px;
+    color: var(--twooter-blue-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    transition: .25s;
+}
+.modal-header button:hover {
+    text-decoration: none;
+    background: rgba(95,110,124,.1);
+    color: var(--twooter-blue-dark);
+}
+.modal-header-button {
+    word-break: normal;
+    margin: auto;
+    color: white;
+    font-weight: bold;
+    background: var(--twooter-blue-dark);
+    padding: 5px 15px;
+    border-radius: 25px;
+    transition: .25s;
+    cursor: pointer;
+
+}
+.modal-header-button:hover {
+    color: white;
+    background: var(--twooter-blue-dark);
+}
+
+/* Maybe u dont need this actually, maybe u just need regular twoot.*/
+.new-message-twoot {
+    border-bottom: 1px solid var(--normal-border);
+    margin: 0;
+    transition: .25s;
+    display: block;
+}
+.new-message-twoot:hover {
+    background: var(--twoot-hover);
+}
+.test-checkbox:checked + .test-label {
+    background: var(--twooter-blue-dark);
+}
+.test-checkbox {
+    display: none;
+}
+.new-message-searchbar {
+    opacity: 70%;
+    background-color: var(--search-background);
+    color: white;
+    width: 100%;
+    height: 100%;
+    padding-left: 10px;
+    border: none;
+}
+
+@media only screen and (max-width: 590px) {
+    
+    .message-container-inner {
+        margin-right: 6%;
+    }
+    .message-icon {
+        display: none;
+    }
+ 
+}

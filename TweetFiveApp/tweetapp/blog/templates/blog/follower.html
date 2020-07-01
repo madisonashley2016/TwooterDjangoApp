@@ -1,0 +1,75 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'blog/css/home.css' %}" type="text/css"/>
+<link rel="stylesheet" href="{% static 'blog/css/follow.css' %}" type="text/css"/>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="follow-header-div">
+    <div class="header-back-button">
+        <button type="button"><i class="jam jam-backward"></i></button>
+    </div>
+    <div class="follow-header-title">
+        {{ title }}
+    </div>
+</div>
+
+<div class="follow-wrapper">
+    {% for f in follow %}
+    <div  data-url="{% url 'profile_view' f.username %}" class="follow-inner divgotourl">
+        <div>
+            <img class="follow-icon" src="{{f.profile.picture.url}}"/>
+        </div>
+        <div class="follow-content">
+            <span id="display-name">{{ f.profile.display_name }}</span> 
+            <br>
+            <span id="username">@{{ f.username }}</span>  
+        </div>
+        <div class="follow-follow-button">
+            {% if f == request.user %}
+            <a href="{% url 'profile_view' f.username %}">Profile</a>
+            {% elif f in request.user.profile.getFollowing %}
+            <button class="follow-button" data-user="{{f.username}}" type="button">UnFollow</button>
+            {% else %}
+            <button class="follow-button" data-user="{{f.username}}" type="button">Follow</button>
+            {% endif %}
+        </div>
+       
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+//Follow button implementation. csrf is not enabled.
+    $(".follow-button").each( function() {
+        var this_button = $(this);
+        this_button.click( function(){
+            var token = "{{csrf_token}}";
+            $.ajax({
+                type: "POST",
+                url: '{{ request.get_full_path }}',
+                data: {"type" : "follow-button",
+                        "user_in_question" : this_button.attr('data-user')},
+                success: function(data){
+                    if(data == "unfollowed"){
+                        this_button.text("Follow");
+                    }
+                    else if(data == "followed"){
+                        this_button.text("UnFollow");
+                    }
+                },
+                error: function(data){
+                    console.log("ERROR WITH FOLLOW BUTTON!");
+                }
+
+            })
+        });
+    });
+</script>
+{% endblock %}

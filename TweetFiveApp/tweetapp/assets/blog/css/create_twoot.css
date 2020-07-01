@@ -1,0 +1,134 @@
+
+/*padding: 15px 20px;*/
+/*All the twoot create form stuff*/
+.twoot-create-header-button{
+    margin-left: 10px;
+    padding: 8px 20px;
+    background: rgba(29, 161, 242, 1);
+    color: rgba(255, 255, 255, 1);
+}
+.twoot-create-header-button:hover {
+    background: rgba(29, 161, 242, .7);
+    color: rgba(255, 255, 255, 1);
+}
+.twoot-create-header-button:disabled {
+    margin-left: 10px;
+    padding: 8px 20px;
+    background: rgba(29, 161, 242, .3);
+    color: rgba(255, 255, 255, 0.3);
+}
+.twoot-create-header-button:disabled:hover {
+    background: rgba(29, 161, 242, .3);
+    color: rgba(255, 255, 255, 0.3);
+}
+.twoot-create-header-disabled {
+    margin-left: 10px;
+    padding: 8px 20px;
+    background: rgba(29, 161, 242, .3);
+    color: rgba(255, 255, 255, 0.3);
+}
+.twoot-create-header-disabled:hover {
+    background: rgba(29, 161, 242, .3);
+    color: rgba(255, 255, 255, 0.3);
+}
+
+
+.twoot-create {
+    padding: 2% 0 1% 2%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    text-decoration: none;
+  
+}
+.twoot-create-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    
+}
+.twoot-create-input {
+    border-radius: 0; border: none;
+    background: var(--main-background);
+    color: white;
+
+    max-width: 100%; width: 100%;
+    max-height: 90px;
+    padding: 15px 0px 10px 25px;
+    resize: none;
+}
+.twoot-create-button-div {
+    display: flex;
+    align-items: center;
+    padding: 0 20px 0 0;
+}
+.twoot-create-side-button-div {
+    display: flex;
+    margin-left: auto;
+    
+}
+.twoot-create-button {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--twooter-blue-dark);
+    font-size: 20px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    transition: .25s;
+}
+.twoot-create-button:hover {
+    background: rgba(95,110,124,.1);
+    color: var(--twooter-blue-dark);
+}
+
+.stupid-notch {
+    background: rgb(107,125,140);
+    height: 35px;
+    width: 1.5px;
+    margin: 0 5px;
+}
+
+#side1-button-id {
+    display: none;
+}
+#side2-button-id {
+    display: none;
+}
+#side3-button-id {
+    display: none;
+}
+
+/*This is all for image upload button*/
+#twoot-create-file-id {
+    display: none;
+}
+.create-twoot-img-container {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 20px;
+    max-width: 90%;
+    max-height: 100%;
+}
+#twoot-create-img-id {
+    display: none;
+    width: 100%;
+    border-radius: 15px;
+    border: 1px solid var(--normal-border);
+
+}
+.create-twoot-img-container-delete {
+    display: none;
+    position: absolute;
+    top: 5px; right: 5px;
+    background: rgba(0,0,0,.5);
+    color: white;
+}
+.create-twoot-img-container-delete:hover {
+    background: rgba(0,0,0,.2);
+    color: white;
+}

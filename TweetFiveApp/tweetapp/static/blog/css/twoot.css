@@ -1,0 +1,52 @@
+
+.detail-twoot-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 10px 3px 10px;
+    width: 100%;
+    border-bottom: 1px solid var(--normal-border);
+    transition: .25s;
+
+}
+.detail-twoot-icon-and-author {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+.detail-twoot-content {
+    font-size: 25px;
+    padding: 20px 0 20px 20px;
+
+}
+.detail-twoot-time {
+    padding: 0 0 5px 20px;
+
+}
+
+.detail-twoot-button-inner-div {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ 
+}
+.detail-twoot-button-div {
+    display: flex;
+    justify-content: center;
+}
+
+.detail-twoot-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 5px;
+    border-top: 1px solid var(--normal-border);
+}
+.detail-twoot-footer a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    flex: 1;
+}

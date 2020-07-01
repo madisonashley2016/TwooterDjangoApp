@@ -1,0 +1,97 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% load custom_taggums %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'blog/css/home.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="h1div">
+    <div class="h1div-element">Help</div>
+</div>
+
+<div class="homebasediv">
+    <div class="helptextdiv">
+    <h1>
+        Account Help
+    </h1>
+    <br>
+    <h2>
+        Reset Password
+    </h2>
+    <ul>
+        <li>If you need to reset your password, just go to this link here.</li>
+        <li>If you can not remember your email address, contact us, and we can help you
+        to look up your account.</li>
+        <li>If you can not remember any information, we can not help you.</li>
+    </ul>
+
+    <h2>
+        Profile
+    </h2>
+    <ul>
+        <li>If you are logged in, you can click on the profile link to see your profile.</li>
+        <li>Your profile is public, except for your email address, which is private.</li>
+        <li>If you want to edit your profile, you can click the edit profile link on the 
+        upper right hand corner of your profile.</li>
+        <li>Pictures that you upload will be automatically cropped by the machine. </li>
+    </ul>
+    
+    <h1>
+        Twooting Guide
+    </h1>
+    <ul>
+        <li>You can create a new twoot after logging in, from your Home page.</li>
+        <li>A Twoot can only be 10 characters long, that is by design.</li>
+        <li>You can like and retwoot twoots. You can also comment on twoots.</li>
+        <li>If you retwoot a twoot it will only show up on you and your followers homepages.</li>
+        <li>If you make a twoot, and it gets popular, it can potentially show up on the Explore page under trending.</li>
+        <li>If you want to follow a user, click on their username, and follow them from their profile.</li>
+        <li>If you want to comment on a twoot, just click anywhere on the twoot to get to the comments page.</li>
+    </ul>
+
+    <h1>
+        Rules
+    </h1>
+    <ul>
+        <li>No pooping.</li>
+        <li>No lizard people allowed.</li>
+        <li>No rudeness or meanness.</li>
+        <li>No bigotry of any kind. Open minded people only!</li>
+        <li>NO POOPING!!!!!</li>
+        <li>No illegal activity discussion.</li>
+        <li>No asking for money.</li>
+        
+    </ul>
+ 
+    <h1>
+        Contact the Supreme Robot
+    </h1>
+    <p>Do not contact me if you can figure it out by yourself!!!!</p>
+    <form class="flex-form" method="POST" style="display: inline;">
+        {% csrf_token %}
+        <input class="forms" type="email" name="email" placeholder="email@email.com">
+        <br>
+        <textarea rows="10" class="forms" name="content" placeholder="Type your message here..."></textarea>
+        <br>
+        <button class="button" type="submit" name="supreme-submit">Contact the Supreme Robot</button>
+    </form>
+    {% if messages %}
+        {% for message in messages %}
+        <span {% if message.tags %}class="green {{ message.tags }}"{% endif %}>{{ message }}</span>
+        {% endfor %}
+    {% endif %}
+    
+</div>
+   
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+   
+</script>
+{% endblock %}
+

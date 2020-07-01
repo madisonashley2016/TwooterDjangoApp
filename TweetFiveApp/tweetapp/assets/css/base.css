@@ -1,0 +1,156 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    box-sizing: border-box;
+    font-family: 'Audiowide';
+    /*font-family: 'PT Sans';*/
+}
+
+html, body {
+    background-color: green;
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.mainnav {
+    background-color: #162446;
+    color: purple;
+    height: 100%;
+    border-right: solid;
+    border-width: 1.5px;
+    border-color: #24355f;
+    text-align: center;
+    
+    font-size: 20px;
+ 
+}
+
+.mainnav ul{
+    list-style-type: none;
+    
+}
+
+.mainnav ul li a {
+    display: block;
+    text-decoration: none;
+    padding: 10% 0px;
+    /*padding-bottom: 20%;*/
+    
+    color: #f7f7f7;
+    font-weight: bold;
+    transition: .25s;
+}
+
+.mainnav ul li a:hover {
+    color: #3484ff;
+    background: #24355f;
+}
+
+#mainnavbrand {
+    font-size: 30px;
+    color: #f7f7f7;
+    padding: 15px;
+}
+
+#mainnavbrand:hover {
+    color: #f7f7f7;
+    background: #162446;
+}
+
+.othercontent {
+    width: 100%;
+    background-color: #162446;
+ 
+}
+
+.paginaton {
+    list-style:none;
+    display: flex;
+    margin: 2%;
+}
+
+.paginaton li a, span{
+    text-decoration: none;
+}
+
+.enabled {
+    color: #f7f7f7;
+    border-style: solid;
+    border-width: 1.5px;
+    border-color: #24355f;
+    border-radius: 5%;
+    padding: 5px 10px;
+    margin: 5px;
+    transition: .25s;
+}
+
+.enabled:hover {
+    color: #3484ff;
+    background: #24355f;
+}
+.disabled {
+    color: #535e81;
+    opacity: 50%;
+    border-style: solid;
+    border-width: 1.5px;
+    border-color: #24355f;
+    border-radius: 5%;
+    padding: 5px 10px;
+    margin: 5px;
+    transition: .25s;
+}
+
+.disabled:hover {
+    color: #535e81;
+}
+
+.current {
+    color: #3484ff;
+    background: #24355f;
+    font-weight: bold;
+    font-size: 30px;
+    border-style: solid;
+    border-width: 1.5px;
+    border-color: #24355f;
+    border-radius: 5%;
+    padding: 5px 10px;
+    margin: 5px;
+    transition: .25s;
+
+}
+.current:hover {
+    color: #3484ff;
+
+}
+
+.hydratebutton {
+    color: #f7f7f7;
+    border: 1.5px solid #24355f;
+    padding: 0px 10px;
+    margin-left: 15%;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 20px;
+    transition: .25s;
+}
+
+.hydratebutton:hover {
+    border: 1.5px solid #3484ff;
+    background-color: #3484ff;
+    font-weight: bold;
+}
+
+#logoutdiv {
+    color: white;
+    font-weight: bold;
+    font-family: Impact;
+    display: flex;
+    justify-content: center;
+    margin: 10%;
+}

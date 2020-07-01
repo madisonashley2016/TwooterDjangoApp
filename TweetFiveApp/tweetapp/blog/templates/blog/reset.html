@@ -1,0 +1,30 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'blog/css/logout.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+<div class="h1div">
+    <h1 class="h1div-element">Reset Password</h1>
+</div>
+
+<div class="login-wrapper-div twoot-list">
+
+    <form class="flex-form-login" method='POST'>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <label for="{{ form.new_password1.id_for_label }}">New Password</label>
+        <input class="login-searchbar" id="{{ form.new_password1.id_for_label }}" name="{{form.new_password1.html_name}}" placeholder="new password" type="text"/>
+        {{ form.new_password1.errors }}
+
+        <label for="{{ form.new_password2.id_for_label }}">Confirm Password</label>
+        <input class="login-searchbar" id="{{ form.new_password2.id_for_label }}" name="{{form.new_password2.html_name}}" placeholder="confirm password" type="text"/>
+        {{ form.new_password2.errors }}
+
+        <button class="login-button button" type="submit">Reset Password</button>
+    </form>
+</div>
+{% endblock %}

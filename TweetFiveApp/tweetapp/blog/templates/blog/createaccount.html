@@ -1,0 +1,47 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'blog/css/logout.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="h1div">
+    <img class="h1div-element" src="{% static 'blog/imgs/create_account_gif.gif' %}" alt="Account Creation Page">
+</div>
+
+
+<div class="twoot-list">
+    
+    <form id="flex-form-create-account" class="flex-form-login" method='POST' enctype="multipart/form-data">
+    {% csrf_token %}
+    <span class="red" >{{ form.non_field_errors }}</span>
+    <br>
+    {% for field in form %}
+    {% if field.html_name == "birth_date" %}
+    <label for="{{ field.id_for_label }}">{{field.label}}</label>
+    <br>
+    <input class="searchbar-create-account searchbar" id="{{ field.id_for_label }}" name="{{field.html_name}}" type="date"/>
+    {% else %}
+    <label for="{{ field.id_for_label }}">{{field.label}}</label>
+    <br>
+    <input class="searchbar-create-account searchbar" id="{{ field.id_for_label }}" name="{{field.html_name}}"  placeholder="{{field.html_name}}" type="text"/>
+    {% endif %}
+    {% if field.help_text %}
+        <br>
+        <span style="list-style-type: none;" class="content">{{ field.help_text }}</span>
+    {% endif %}
+  
+    <br>
+    <span class="red">{{ field.errors }}</span>
+    {% endfor %}
+    <br>
+    <button class="button" type="submit">Create Account</button>
+    </form>
+    
+</div>
+<br>
+    <span style="margin-left: 15px;" class="content"><a class="content-author" href="{% url 'login' %}">Login</a> or <a class="content-author" href="#">Reset Password</a></span>
+
+    
+{% endblock %}

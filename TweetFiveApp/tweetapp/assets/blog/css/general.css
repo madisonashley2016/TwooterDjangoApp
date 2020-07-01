@@ -1,0 +1,146 @@
+:root {
+    --main-background: #15202B;
+    --header-border: #3D5466;
+    --normal-border: #38444D;
+    --twoot-hover: #192734;
+    --content-text: #5F6E7C;
+    --twooter-blue-dark: #1DA1F2;
+    --twooter-blue-light: #1A91DA;
+    --search-background: #253341;
+}
+
+.h1div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+
+    border-bottom: 1px solid var(--header-border);
+    color: white;
+    background: var(--main-background);
+
+    position: sticky;
+    top: 0;
+    z-index: 900;
+}
+.h1div-element {
+    flex: 1;
+    word-break: normal;
+    padding: 0 10px;
+    font-size: 30px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*General Stuff*/
+.twoot-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.twoot {
+    flex: 1;
+    width: 100%;
+    border-bottom: 1px solid var(--normal-border);
+}
+.twoot-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 5px;
+}
+.twoot-footer:hover {
+    background: var(--twoot-hover);
+}
+.twoot-footer a{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+.retwoot-twoot-text-div {
+    display: flex;
+    padding: 0 0 0 40px;
+}
+
+.twoot-content-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    width: 100%;
+    padding: 5px 0 3px 0;
+    
+    transition: .25s;
+}
+.twoot-content-wrapper:hover {
+    background: var(--twoot-hover);
+}
+.twoot-content-inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.twoot-button-div {
+    display: flex;
+    justify-content: flex-start;
+}
+.twoot-content-true {
+    padding: 5px 0;
+}
+
+.twoot-content-img {
+    max-width: 90%;
+    max-height: 300px;
+    margin: 5px 0 5px 0;
+    border-radius: 15px;
+    border: 1px solid var(--normal-border);
+}
+
+.icon {
+    flex: 1 0 auto;
+    max-width: 75px;
+    max-height: 75px;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 50%;
+    margin: 10px 10px;
+}
+
+.content {
+    line-height: 20px;
+    color: var(--content-text);
+    text-decoration: none;
+}
+.retwoot-twoot-text-div .content:hover {
+    color: var(--content-text);
+}
+.content-author {
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+.content-author:hover {
+    color: white;
+}
+.content-white {
+    color: white;
+}
+
+.helptextdiv {
+    color: white;
+    padding-top: 1%;
+    padding-left: 25px;
+    margin-bottom: 100px;
+    max-width: 800px;
+}
+
+@media only screen and (max-width: 450px) {
+}

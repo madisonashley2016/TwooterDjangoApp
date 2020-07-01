@@ -1,0 +1,175 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'blog/css/messages.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<div class="message-back-button-div">
+    <div class="header-back-button">
+        <button type="button"><i class="jam jam-backward"></i></button>
+    </div>
+    <div class="message-header-names">
+        {% for user in group.getMyUsers %}
+            {% if not forloop.last %}
+            {{ user.profile.display_name }},
+            {% else %}
+            {{ user.profile.display_name }}
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div style="font-size: 20px;" id="message-info-button-id" class="message-info-button">
+        <button type="button"><i class="jam jam-users"></i></button>
+    </div>
+</div>
+
+<div class="message-wrapper">
+    <!--The messages from the db-->
+    <div  id="message-scroll" class="message-super-container-outer">
+    {% for message in messages %}
+        <div id="message-id" class="message-container-outer">
+            <!--Content and user., if I sent vs if someone else sent it. Just styling stuff.-->
+            {% if request.user == message.sender %}
+            <!--Content and user.-->
+            <div class="my-message-container-inner content">
+                <div class="my-private-message">
+                    <span class="content-white">{{ message.content }}</span> 
+                </div>     
+                <div class="content">{{ message.time }}</div>
+            </div>
+
+            {% else %}
+            <div>
+                <img class="message-icon" src="{{message.sender.profile.picture.url}}"/>
+            </div>
+            <div class="message-container-inner content">
+                @{{ message.sender.username }}
+              
+                <div class="private-message">
+                    <span class="content-white">{{ message.content }}</span> 
+                </div>     
+                <div class="content">{{ message.time }}</div>
+            </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+    <!--The submit form-->
+    <div id="message-send-container-outer" class="message-container-outer">
+        <div class="message-send-container-input">
+            <input id="content-id" class="message-send" name="content" type="textarea" placeholder="Write message...">
+            <label class="message-emoji-button" for="emoji-button"><i class="far fa-laugh"></i></label>
+            <input style="display: none;" id="emoji-button" type="button" name="emojibutton">
+        </div>
+
+        <button id="submit-button-id" class="message-button" name="send" type="submit"><i class="jam jam-paper-plane"></i></button>
+    </div>
+    
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    
+$(document).ready(function(){
+    //This is so the scroll begins at the bottom of the scroll box. And hide the mobile nav (if mobile.)
+    $("#message-scroll").scrollTop($("#message-scroll").prop("scrollHeight"));
+    $("#mobile-nav-id").hide();
+
+    $("#message-info-button-id").click(function(){
+        $.ajax({
+            type: "POST",
+            headers: {"X-CSRFToken" : "{{csrf_token}}"},
+            url: '{{ request.get_full_path }}',
+            data: {"csrfmiddlewaretoken" : "{{csrf_token}}", "type" : "info-button"},
+            success: function(data){
+                $(".othercontent").html(data);
+            },
+            error: function(data){
+                console.log("ERROR WITH INFO BUTTON!");
+            }
+
+        })
+    });
+
+   //Web Socket stuff lit lit.
+    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    const messageSocket = new WebSocket( //Create websocket 
+        ws_scheme + '://'
+        + window.location.host
+        + '/ws'
+        + window.location.pathname
+    );
+    console.log("The websocket: " + messageSocket);
+
+    $("#submit-button-id").click(function(event) { //Send message when click send.
+        var message = $("#content-id").val();
+        messageSocket.send(JSON.stringify({
+            'message': message
+            }));
+        $("#content-id").val("");
+    });
+
+    messageSocket.onmessage = function(e) { //When you recieve new message display it. (depneding on if u sent it or someone else)
+        var data = JSON.parse(e.data);
+        if(data.username == '{{request.user.username}}'){
+            $("#message-scroll").append(
+            `<div id="message-id" class="message-container-outer">
+                <div class="my-message-container-inner content">
+                    <div class="my-private-message">
+                        <span class="content-white">${data.message}</span> 
+                    </div>    
+                    <span class="content">${data.time}</span> 
+                </div>
+            </div>`);
+        }
+        else{ //This is just for styling differences...
+            $("#message-scroll").append(
+            `<div id="message-id" class="message-container-outer">
+                <div>
+                    <img class="message-icon" src="${data.picture_url}"/>
+                </div>
+                <div class="message-container-inner content">
+                    @${data.username}
+                    <div class="private-message">
+                        <span class="content-white">${data.message}</span> 
+                    </div>    
+                    <span class="content">${data.time}</span> 
+                </div>
+            </div>`); 
+
+        }
+        //If user is scrolled up, dont bother them by scrolling down for new messages.
+        var scroll = $("#message-scroll").prop("scrollHeight") - $("#message-scroll").scrollTop();
+        var window_height_plus = $(window).height() + 300;
+        if(scroll <= window_height_plus){ //Scroll!
+            $("#message-scroll").scrollTop($("#message-scroll").prop("scrollHeight")); 
+        }
+    };
+
+    messageSocket.onclose = function(e) { //If socket closes.
+        console.error("Message Socket closed unexpectedly! Durp durp");
+    };
+
+    //For emoji input.
+    const button = document.querySelector('#emoji-button');
+    const picker = new EmojiButton();
+    picker.on('emoji', emoji => {
+        document.querySelector('#content-id').value += emoji;
+    });
+    button.addEventListener('click', () => {
+        picker.togglePicker(button);
+    });
+    $(document).keypress(function(event){
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if(keycode == '13'){
+                    $("#submit-button-id").trigger("click");
+                }
+            });
+
+});
+
+</script>
+{% endblock %}

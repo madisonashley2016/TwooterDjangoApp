@@ -1,0 +1,61 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% load el_pagination_tags %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'blog/css/home.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="h1div">
+    <form id="explore-header" class="flex-form" method="GET">
+        <span class="h1div-element">Explore</span>
+        <input class="searchbar" type="text" name="q" id="id_q" placeholder="Search...">
+    </form>
+</div>
+
+<div class="explore-middle-header">
+    {% if request.resolver_match.url_name == "explore_view" %}
+    <a id="trending" class="active link" href="{% url 'explore_view' %}">Trending</a>
+    <a id="latest" class="link" href="{% url 'explore_view_latest' %}">Latest</a>
+    <a id="hashtags" class="link" href="{% url 'explore_view_fancy' %}">Tags</a>
+    {% elif request.resolver_match.url_name == "explore_view_latest" %}
+    <a id="trending" class="link" href="{% url 'explore_view' %}">Trending</a>
+    <a id="latest" class="active link" href="{% url 'explore_view_latest' %}">Latest</a>
+    <a id="hashtags" class="link" href="{% url 'explore_view_fancy' %}">Tags</a>
+    {% elif request.resolver_match.url_name == "explore_view_fancy" %}
+    <a id="trending" class="link" href="{% url 'explore_view' %}">Trending</a>
+    <a id="latest" class="link" href="{% url 'explore_view_latest' %}">Latest</a>
+    <a id="hashtags" class="active link" href="{% url 'explore_view_fancy' %}">Tags</a>
+    {% endif %}
+    
+</div>
+<a href="{% url 'create_twoot_view' %}" class="float-twoot-button"><i class="fas fa-feather-alt"></i></a>
+
+<div id="hashtag-list" class="twoot-list">
+    {% for tag in hashtags %}
+    <div class="hashtag" data_url="{% url 'explore_view' %}?q=%23{{tag.name}}">
+        <span class="hashtag-status">{{ forloop.counter }} &middot; Trending</span>
+        <span class="hashtag-name">#{{ tag.name }}</span>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+$(document).ready(function() {
+
+    document.getElementById("id_q").value = "{{ query }}";
+
+    $(".hashtag").each( function() {
+        $(".hashtag").click( function() {
+            window.location = $(this).attr("data_url");
+        });
+    });
+    
+});
+</script>
+{% endblock %}

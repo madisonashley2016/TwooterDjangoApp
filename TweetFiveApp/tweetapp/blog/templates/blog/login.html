@@ -1,0 +1,37 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'blog/css/logout.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block content %} 
+
+<div class="h1div">
+    <h1 class="h1div-element">Login</h1>
+</div>
+
+<div class="login-wrapper-div twoot-list">
+
+    <form class="flex-form-login" method='POST' enctype="multipart/form-data">
+
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <label for="{{ form.username.id_for_label }}">Username</label>
+        <input class="login-searchbar" id="{{ form.username.id_for_label }}" name="{{form.username.html_name}}"  placeholder="username" type="text"/>
+        {{ form.username.errors }}
+        <br>
+        <label for="{{ form.password.id_for_label }}">Password</label>
+        <input class="login-searchbar" id="{{ form.password.id_for_label }}" name="{{form.password.html_name}}"  placeholder="password" type="password"/>
+        {{ form.password.errors }}
+        <br>
+        <button class="login-button button" type="submit">Login</button>
+        
+    </form>
+<span class="content"><a class="content-author" href="{% url 'createaccount' %}">Create Account</a> or <a class="content-author" href="#">Reset Password</a></span>
+    
+
+</div>
+       
+
+    
+{% endblock %}

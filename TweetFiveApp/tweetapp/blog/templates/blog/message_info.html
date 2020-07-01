@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet" href="{% static 'blog/css/base.css' %}" type="text/css"/>
+<link rel="stylesheet" href="{% static 'blog/css/general.css' %}" type="text/css"/>
+<link rel="stylesheet" href="{% static 'blog/css/formsbuttons.css' %}" type="text/css"/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@700&display=swap" rel="stylesheet"> 
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'blog/css/messages.css' %}" type="text/css"/>
+
+</head>
+
+<body>
+    {% csrf_token %}
+<div id="message-info-header-div" class="message-back-button-div">
+    <div id="message-info-header-back-button">
+        <button type="button"><i class="fas fa-backward"></i></button>
+    </div>
+    <div class="message-header-names">
+        Group Info
+    </div>
+</div>
+<div class="message-back-button-div">
+    <div class="message-header-names">
+        Admin
+    </div>
+</div>
+<div class="message-wrapper">
+    <div  data-url="{% url 'profile_view' group.admin.username %}" class="message-info-user divgotourl">
+        <div>
+            <img class="message-icon" src="{{group.admin.profile.picture.url}}"/>
+        </div>
+        <div class="message-info-content">
+            <span id="display-name">{{ group.admin.profile.display_name }}</span> 
+            <br>
+            <span id="username">@{{ group.admin.username }}</span>  
+        </div>
+        <div class="message-info-follow-button">
+            
+            {% if group.admin == request.user %}
+            <a href="{% url 'profile_view' group.admin.username %}">Profile</a>
+            {% elif group.admin in request.user.profile.getFollowing %}
+            <button class="follow-button" data-user="{{group.admin.username}}" type="button">UnFollow</button>
+            {% else %}
+            <button class="follow-button" data-user="{{group.admin.username}}" type="button">Follow</button>
+            {% endif %}
+        </div>
+       
+    </div>
+</div>
+<div class="message-back-button-div">
+    <div class="message-header-names">
+        Members
+    </div>
+</div>
+<div class="message-wrapper">
+    {% for user in group.getMyUsers %}
+    {% if user != group.admin %}
+    <div  data-url="{% url 'profile_view' user.username %}" class="message-info-user divgotourl">
+        <div>
+            <img class="message-icon" src="{{user.profile.picture.url}}"/>
+        </div>
+        <div class="message-info-content">
+            <span id="display-name">{{ user.profile.display_name }}</span> 
+            <br>
+            <span id="username">@{{ user.username }}</span>  
+        </div>
+        <div class="message-info-follow-button">
+            
+            {% if user == request.user %}
+            <a href="{% url 'profile_view' user.username %}">Profile</a>
+            {% elif user in request.user.profile.getFollowing %}
+            <button class="follow-button" data-user="{{user.username}}" type="button">UnFollow</button>
+            {% else %}
+            <button class="follow-button" data-user="{{user.username}}" type="button">Follow</button>
+            {% endif %}
+        </div>
+       
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+</body>
+</html>
+<script src="https://kit.fontawesome.com/4a151a7ea3.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'blog/js/main.js' %}"></script> 
+<script>
+
+var token = "{{ request.COOKIES.csrftoken }}";
+
+$("#message-info-header-back-button").on('click', function() {
+    location.reload();
+});
+//Follow button implementation.
+$(".follow-button").each( function() {
+    var this_button = $(this);
+    this_button.click( function(){
+        $.ajax({
+            type: "POST",
+            url: '{{ request.get_full_path }}',
+            data: {"type" : "follow-button",
+                    "user_in_question" : this_button.attr('data-user'),
+                    "csrfmiddlewaretoken" : token },
+            success: function(data){
+                if(data == "unfollowed"){
+                    this_button.text("Follow");
+                }
+                else if(data == "followed"){
+                    this_button.text("UnFollow");
+                }
+            },
+            error: function(data){
+                console.log("ERROR WITH FOLLOW BUTTON!");
+            }
+
+        })
+    });
+});
+
+</script>

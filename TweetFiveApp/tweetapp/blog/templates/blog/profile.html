@@ -1,0 +1,113 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% load el_pagination_tags %}
+
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/home.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/profile.css' %}" />
+
+{% endblock %}
+
+{% block content %}
+<div class="profilecontainer">
+
+    <div class="back-button-div">
+        <div class="header-back-button">
+            <button type="button"><i class="jam jam-backward"></i></button>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <img class="crop bannerimg" src="{{ user.profile.banner.url }}" alt="{{ user.username }}s banner image">
+        <img class="profileimg" src="{{ user.profile.picture.url }}" alt="{{ user.username }}s profile picture">
+    </div>
+
+    {% csrf_token %}
+    {% if user == request.user %}
+        <a class="profile-follow-button" href="{% url 'editprofile' %}">Edit Profile</a>
+    {% else %}
+        {% if user.is_followed %}
+            <input class="profile-follow-button-poop profile-follow-button" type="submit" name="followbutton" value="UnFollow">
+        {% else %}
+            <input class="profile-follow-button-poop profile-follow-button" type="submit" name="followbutton" value="Follow">
+        {% endif %}
+    {% endif %}
+
+    <div class="profile-content">
+        
+        <p><span id="profilename" class="content-white">{{ user.profile.display_name }}</span>
+        <br>
+        @{{ user.username }}</p>
+        
+        <p class="content-white">{{ user.profile.display_blurb }}</p>
+        <p> {% if user.profile.location %}
+            <span style="white-space: nowrap;"><i class="fas fa-map-marker-alt"></i> {{ user.profile.location }}</span>
+            {% endif %}
+            {% if user.profile.birth_date %}
+            <span style="white-space: nowrap;"><i class="fas fa-birthday-cake"></i> Born {{ user.profile.birth_date }}</span> 
+            {% endif %}
+            <span style="white-space: nowrap;" ><i class="far fa-calendar-alt"></i> Joined {{ user.profile.date_joined }}</span>
+        <br>
+        <br>
+        <a href="{% url 'follow_view' username=user.username %}">{{ user.following.count }} Following</a>  
+        <a href="{% url 'follower_view' username=user.username %}">{{ user.followers.count }} Followers</a> </p>
+    </div>
+
+    <div  class="profile-middle-header">
+        {% if request.resolver_match.url_name == "profile_view" %}
+        <a class="active-profile-button" href="{% url 'profile_view' username=user.username %}">Twoots</a>
+        <a href="{% url 'replies_view' username=user.username %}">Replies</a>
+        <a href="{% url 'likes_view' username=user.username %}">Likes</a>
+        {% elif request.resolver_match.url_name == "replies_view" %}
+        <a href="{% url 'profile_view' username=user.username %}">Twoots</a>
+        <a class="active-profile-button" href="{% url 'replies_view' username=user.username %}">Replies</a>
+        <a href="{% url 'likes_view' username=user.username %}">Likes</a>
+        {% elif request.resolver_match.url_name == "likes_view" %}
+        <a href="{% url 'profile_view' username=user.username %}">Twoots</a>
+        <a href="{% url 'replies_view' username=user.username %}">Replies</a>
+        <a class="active-profile-button" href="{% url 'likes_view' username=user.username %}">Likes</a>
+        {% endif %}
+    
+    </div>
+    <!--Floaty button-->
+    <a href="{% url 'create_twoot_view' %}" draggable="true" class="float-twoot-button"><i class="fas fa-feather-alt"></i></a>
+
+</div>
+
+<!--<div id="profile-twoot-list-id" class="twoot-list">-->
+<div id="{{request.resolver_match.url_name}}-twoot-list-id-{{user.username}}" class="twoot-list">
+{% lazy_paginate 20 twoots %}
+{% include 'blog/twoot_list.html' %}
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    //Follow button implementation.
+    var this_button = $(".profile-follow-button-poop");
+    var token = $("[name=csrfmiddlewaretoken]").val();
+
+    this_button.click( function(){
+        $.ajax({
+            type: "POST",
+            url: '{{ request.get_full_path }}',
+            data: {"user_in_question" : '{{user}}',
+                   "csrfmiddlewaretoken" : token },
+            success: function(data){
+                if(data == "unfollowed"){
+                    this_button.val("Follow");
+                }
+                else if(data == "followed"){
+                    this_button.val("UnFollow");
+                }
+            },
+            error: function(data){
+                console.log("ERROR WITH FOLLOW BUTTON!");
+            }
+
+        })
+    });
+    
+</script>
+{% endblock %}

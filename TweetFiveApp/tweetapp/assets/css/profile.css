@@ -1,0 +1,73 @@
+
+.profilecontainer {
+    background: #162446;
+   
+    padding: 3%;
+    border-bottom: 1.5px;
+    border-right: 1.5px;
+    border-style: solid;
+    border-color: #24355f;
+    color: #f7f7f7;
+    max-width: 1000px;
+}
+.crop {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+.wrapper {
+    position: relative;
+}
+
+.bannerimg {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+
+}
+
+.profileimg {
+    position: absolute;
+    bottom: -20px;
+    left: 7px;
+
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+
+    border-style: solid;
+    border-color: #162446;
+    border-width: 5px;
+
+    
+    border-radius: 50%;
+
+}
+
+#profilename {
+    font-size: 30px;
+    font-weight: bold;
+
+}
+
+#profileusername {
+    opacity: 30%;
+   
+}
+
+.profilefollowbutton {
+    float: right;
+    font-weight: bold;
+    font-size: 20px;
+    color: #3484ff;
+  
+}
+
+.profilefollowbutton:hover {
+    text-decoration: none;
+    color: #f7f7f7;
+}

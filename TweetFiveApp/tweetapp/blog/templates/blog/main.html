@@ -1,0 +1,143 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% load custom_taggums %}
+{% load el_pagination_tags %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'blog/css/home.css' %}" type="text/css"/>
+<link rel="stylesheet" href="{% static 'blog/css/create_twoot.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+<div class="h1div">
+    <span  class="h1div-element">Home</span>
+</div>
+
+<div class="home-middle-header">
+    {% if request.resolver_match.url_name == "main_view" %}
+    <a id="latest" class="active link" href="{% url 'main_view' %}">Trending</a>
+    <a id="trending" class="link" href="{% url 'main_view_latest' %}">Latest</a>
+    {% elif request.resolver_match.url_name == "main_view_latest" %}
+    <a id="latest" class="link" href="{% url 'main_view' %}">Trending</a>
+    <a id="trending" class="active link" href="{% url 'main_view_latest' %}">Latest</a>
+    {% endif %}
+</div>
+
+<div id="home-top-form" class="twoot-create content">
+  
+    <div class="twoot-create-icon">
+        <img class="icon" src="{{request.user.profile.picture.url}}"/>
+    </div>
+
+    <div class="twoot-create-content">
+        <form id="twoot-create-form-id" method='POST' enctype="multipart/form-data">
+            {% csrf_token %}
+            <!--The input area.-->
+            <textarea class="twoot-create-input" name="content" placeholder="WHAT'S POPPIN?" maxlength="10" rows=2></textarea>
+            <div class="create-twoot-img-container">
+                <img id="twoot-create-img-id" src="">
+                <span class="create-twoot-img-container-delete twoot-create-button"><i class='bx bx-trash'></i></span>
+            </div>
+            <!--All of the buttons-->
+            <div class="twoot-create-button-div">
+                <label class="twoot-create-button" for="twoot-create-file-id"><i class="jam jam-picture"></i></label>
+                <input style="display: none;" type="file" id="twoot-create-file-id" name="image_content" accept="image/*">
+                <label class="twoot-create-button" for="emoji-button"><i class='bx bx-smile'></i></label>
+                <input style="display: none;" id="emoji-button" type="button" name="emojibutton">
+
+                <div class="twoot-create-side-button-div">
+                    <button id="side1-button-id" class="letters-typed twoot-create-button">0</button>
+                    <div id="side2-button-id" class="stupid-notch"></div>
+                    <button id="side3-button-id" class="twoot-create-button" type="submit" name="submitgotothread"><i class='jam jam-plus-circle' ></i></button>
+                    <button class="twoot-create-header-button button" disabled type="submit" name="Submit" id="main-twoot-submit-button-id">Twoot</button>
+                </div>
+            </div>
+        </form>
+           
+    </div>
+</div>
+    
+
+<a href="{% url 'create_twoot_view' %}" draggable="true" class="float-twoot-button"><i class="fas fa-feather-alt"></i></a>
+
+
+<div id="twoots-twoot-list-id-{{request.resolver_match.url_name}}" class="twoot-list">
+{% paginate 20 twoots %}
+{% include 'blog/twoot_list.html' %}
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+    $(document).ready(function(){
+        //Reset all form values when page resets.
+        $(".twoot-create-input").val(null);
+        $("#twoot-create-file-id").replaceWith($("#twoot-create-file-id").val('').clone(true));
+
+        var reader = new FileReader(); //For twoot image file upload. so itll show u what ur about to upload.
+        //If you add a file in.
+        $("#twoot-create-file-id").change(function(){
+            reader.onload = function(e) {
+                $('#twoot-create-img-id').attr('src', e.target.result);
+                $('#twoot-create-img-id').css('display', 'inline-block');
+                $('.create-twoot-img-container-delete').css('display', 'flex');
+            };
+            reader.readAsDataURL($("#twoot-create-file-id")[0].files[0]);
+        });
+
+        //For emoji input.
+        const button = document.querySelector('#emoji-button');
+        const picker = new EmojiButton();
+
+        picker.on('emoji', emoji => {
+            document.querySelector('.twoot-create-input').value += emoji;
+        });
+
+        button.addEventListener('click', () => {
+            picker.togglePicker(button);
+        });
+
+    //If you change ur input to where there is no input in a twoot, then grey out the button.
+    function createTwootInputStatus(){
+        if($("#twoot-create-file-id").val().length > 0 || $(".twoot-create-input").val().length > 0){
+                $(".twoot-create-header-button").prop("disabled", false);
+                $("#side1-button-id").css("display", "inline");
+                $("#side2-button-id").css("display", "inline");
+                $("#side3-button-id").css("display", "inline");
+            }
+        else{
+            $(".twoot-create-header-button").prop("disabled", true);
+            $("#side1-button-id").css("display", "none");
+            $("#side2-button-id").css("display", "none");
+            $("#side3-button-id").css("display", "none");
+        }
+        if($(".twoot-create-input").val().length < 10){
+            $(".letters-typed").html($(".twoot-create-input").val().length);
+        }
+        else{
+            $(".letters-typed").html("<i class='bx bx-no-entry'></i>");
+        }    
+    }
+    $(".twoot-create-input").on("input", function() { 
+        createTwootInputStatus();
+    });
+    $("#twoot-create-file-id").on("change", function() {
+        createTwootInputStatus();
+    });
+    picker.on("emoji", function() {
+        createTwootInputStatus();
+    });
+    //If you remove image from twoot creation, this deletes it and the preview.
+    $(".create-twoot-img-container-delete").click(function(){
+            $("#twoot-create-file-id").replaceWith($("#twoot-create-file-id").val('').clone(true));
+            $('#twoot-create-img-id').attr('src', '');
+            $(this).css('display', 'none');
+            $('#twoot-create-img-id').css('display', 'none');
+            createTwootInputStatus();
+    });
+
+});
+
+</script>
+{% endblock %}

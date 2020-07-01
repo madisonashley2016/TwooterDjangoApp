@@ -1,0 +1,158 @@
+:root {
+    --main-background: #15202B;
+    --header-border: #3D5466;
+    --normal-border: #38444D;
+    --twoot-hover: #192734;
+    --content-text: #5F6E7C;
+    --twooter-blue-dark: #1DA1F2;
+    --twooter-blue-light: #1A91DA;
+    --search-background: #253341;
+}
+
+.profilecontainer {
+    background: var(--main-background);
+    color: white;
+}
+.crop {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+.wrapper {
+    position: relative;
+}
+.bannerimg {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    max-width: 100%;
+    object-fit: cover;
+}
+.profileimg {
+    position: absolute;
+    bottom: -20px;
+    left: 7px;
+
+    max-width: 150px;
+    height: auto;
+    object-fit: cover;
+
+    border: 5px solid var(--main-background);
+
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profile-content {
+    padding: 20px 20px 0 20px;
+    
+    line-height: 20px;
+    width: 100%;
+    color: var(--content-text);
+
+    
+}
+.profile-content a {
+    color: white;
+    font-weight: bold;
+    
+}
+.profile-content a:hover{
+    color: white;
+    text-decoration: underline;
+}
+.profile-content span {
+    padding: 0 2% 0 0;
+    white-space: nowrap;
+}
+
+#profilename {
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+#profileusername {
+    opacity: 30%;
+   
+}
+
+.profile-follow-button {
+    float: right;
+    margin: 10px 10px 0 0;
+    border: 1.4px solid var(--twooter-blue-dark);
+    border-radius: 25px;
+    color: var(--twooter-blue-dark);
+    word-break: normal;
+    padding: 10px 20px;
+    transition: .25s;
+}
+.profile-follow-button:hover {
+    background: rgba(29,161,242,.1);
+
+}
+
+.profile-middle-header {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    vertical-align: center;
+    border-bottom: 1px solid var(--header-border);
+    position: sticky;
+    top: 0;
+}
+.active-profile-button {
+    text-decoration: none;
+    color: var(--twooter-blue-dark);
+    border-bottom: 3px solid var(--twooter-blue-dark);
+}
+.profile-middle-header a {
+    flex: 1;
+    color: var(--content-text);
+    font-weight: bold;
+    padding: 20px 20px;
+}
+.profile-middle-header a:hover {
+    text-decoration: none;
+    color: var(--twooter-blue-dark);
+    background: rgba(29,161,242,.1);
+}
+
+.image-input-file {
+    display: none;
+}
+.image-input-label {
+    background: var(--search-background);
+    padding: 15px 20px;
+    margin: 10px 0 10px 0;
+    border-radius: 25px;
+    transition: .25s;
+    color: white;
+    display: inline-block;
+}
+.image-input-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.image-input-banner-icon {
+    width: 300px;
+    height: 100px;
+    border-radius: 10px;
+}
+
+@media only screen and (max-width: 590px) {
+    .profile-follow-button {
+        margin-top: 5px;
+    
+    }
+
+    .bannerimg {
+        position: relative;
+        top: 0px;
+        left: 0px;
+        max-width: 100%;
+        max-height: 100%;
+    }
+    
+}

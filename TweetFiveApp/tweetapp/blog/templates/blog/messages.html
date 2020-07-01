@@ -1,0 +1,198 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'blog/css/home.css' %}" type="text/css"/>
+<link rel="stylesheet" href="{% static 'blog/css/messages.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+<div id="new-message-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal"><i class="fas fa-times"></i></button>
+                <h1>New Message</h1>
+                <label class="modal-header-button" for="userchoice">Next</label>
+            </div>
+
+            <form id="modal-search-form" method="GET">
+                {% csrf_token %}
+                <input class="new-message-searchbar modal-body" type="text" name="q" id="id_q" placeholder="Search...">
+            </form>
+          
+            <div id="modal-body-json">
+                <form method="POST" class="modal-content">
+                    {% csrf_token %}
+                    <input id="userchoice" type="submit" name="user-choice" hidden>
+                    <div id="poopy-poop">
+                    {% for user in users %}
+                        <input class="test-checkbox" type="checkbox" id="check_{{user.pk}}" name="poops" value="{{user.pk}}">
+                        <!--When you click a choices checkbox, a hidden input appears in a different location with the value of that box.-->
+                        <!--Opposite happens when you unclick it.-->
+                        <label for="check_{{user.pk}}" class="test-label new-message-twoot modal-body">
+                            <div class="content">
+                                <div class="content-author">{{ user.profile.display_name }}</div>
+                                @{{ user.username }}
+                            </div>
+                        </label>
+                    {% endfor %}
+                    </div>
+                    <!--Here is where the hidden inputs go DO NOT DELETE!!-->
+                    <div id="hidden-inputs">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer"> <!--Just because bootstrap-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="h1div">
+    <span class="h1div-element">Messages</span>
+    
+    <button id="new-message-button" data-toggle="modal" data-target="#new-message-modal" type="button"><i class="fas fa-plus"></i></button>
+</div>
+    
+<div class="twoot-list">
+    {% for group in inbox %}
+
+    <div data-url="{% url 'message_detail_view' pk=group.pk %}" class="message-info-user divgotourl">
+     
+        {% if group.hasMessages == True %}
+        <div>
+            <img class="messages-icon" src="{{group.getMostRecentMessage.sender.profile.picture.url}}"/>
+        </div>
+        <div class="messages-content-wrapper">
+            <div class="messages-content-wrapper-inner content">
+                <div class="messages-content-authors content-author">
+                    {% for user in group.getMyUsers %}
+                    {% if not forloop.last %}
+                        {{ user.profile.display_name }},
+                    {% else %}
+                        {{ user.profile.display_name }}
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <br>
+                <div class="messages-content">{{ group.getMostRecentMessage.content }}</div>
+            </div>
+
+            <div class="messages-content-time content">{{ group.getMostRecentMessage.time }}</div>
+        </div>
+        {% else %}
+        <div>
+            <img class="icon" src="{{group.admin.profile.picture.url}}"/>
+        </div>
+        <div class="messages-content-wrapper">
+            <div class="messages-content-wrapper-inner content">
+                <div class="messages-content-authors content-author">
+                    {% for user in group.getMyUsers %}
+                    {% if not forloop.last %}
+                        {{ user.profile.display_name }},
+                    {% else %}
+                        {{ user.profile.display_name }}
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <br>
+                <div class="messages-content">Admin: @{{ group.admin.username }}</div> 
+            </div>
+            <div class="messages-content-time content">{{ group.date_created }}</div>
+        </div>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+    
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+$(document).ready(function(){
+
+   $(".test-checkbox").each(function() {
+       $(this).prop("checked", false); //Hopefully all begin unchecked on page load.
+        $(this).click(function() {
+            var hidden_id = "#hidden_" + $(this).val();
+            //Check if input already in the hidden inputs. IF it is then remove it.
+            if ($(hidden_id).length){
+                $(hidden_id).remove();
+            }
+            else{
+                 //else Add a hidden input
+                hidden_html = `<input type="hidden" id="hidden_${$(this).val()}" name="choices" value="${$(this).val()}">`;
+                $("#hidden-inputs").append(hidden_html);
+            }
+        });
+   });
+
+    $("#modal-search-form").on("submit", function(e) {
+        e.preventDefault();
+        token = $("#modal-search-form").find("input[name=csrfmiddlewaretoken").val();
+        $.ajax({
+            url: "{% url 'messages_view' %}",
+            type: "GET",
+            data: {
+                q : $("#id_q").val(),
+                csrfmiddlewaretoken : token
+            },
+            success: function(response) {
+                var html = "";
+                var username; var display_name; var pk;
+                $("#poopy-poop").empty();
+
+                $.each(response, function(index){
+                    username = response[index]["username"];
+                    display_name = response[index]["profile__display_name"];
+                    pk = response[index]["pk"];
+                    var hidden_check_id = "#hidden_" + pk;
+                    var check_id = "#check_" + pk;
+                    
+                    html = `<input class="test-checkbox" type="checkbox" id="check_${pk}" name="choices" value="${pk}">
+                        <label for="check_${pk}" class="test-label new-message-twoot modal-body">
+                            <div class="content">
+                                <div class="content-author">${display_name}</div>
+                                @${username}
+                            </div>
+                        </label>`;
+                    $("#poopy-poop").append(html); //Append each user inside of poopy poop.
+                     //Check if the checkbox already has a hidden input, if it does, then label it checked initially.
+                    if($(hidden_check_id).length){ //if hidden_check_id exists.
+                        $(check_id).prop("checked", true);
+                    }   
+                    
+                });
+               
+                 $(".test-checkbox").each(function() {
+                    $(this).click(function() {
+                        var hidden_id = "#hidden_" + $(this).val();
+                        //Check if input already in the hidden inputs. IF it is then remove it.
+                        if ($(hidden_id).length){
+                            $(hidden_id).remove();
+                        }
+                        else{
+                            //else Add a hidden input
+                            hidden_html = `<input type="hidden" id="hidden_${$(this).val()}" name="choices" value="${$(this).val()}">`;
+                            $("#hidden-inputs").append(hidden_html);
+                        }
+                       
+                    });
+                });
+
+
+            },
+            error : function(error) {
+                console.log("Error!");
+            }
+        })
+      
+    });
+
+    document.getElementById("id_q").value = "{{ query }}";
+});
+</script>
+{% endblock %}

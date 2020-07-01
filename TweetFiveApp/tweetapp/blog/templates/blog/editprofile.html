@@ -1,0 +1,108 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'blog/css/logout.css' %}" type="text/css"/>
+<link rel="stylesheet" href="{% static 'blog/css/profile.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="h1div">
+    <h1>Edit Profile</h1>
+</div>
+
+<div class="twoot-list">
+    <form id="flex-form-create-account" class="flex-form-login" method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        <span class="red" >{{ profile_form.non_field_errors }}</span>
+        <span class="red" >{{ user_form.non_field_errors }}</span>
+        <br>
+        {% for field in user_form %}
+        <label for="{{ field.id_for_label }}">{{field.label}}</label>
+        <br>
+        <input class="searchbar-create-account searchbar" id="{{ field.id_for_label }}" name="{{field.html_name}}" placeholder="{{field.html_name}}" value="{{field.initial}}" type="text"/>
+        {% if field.help_text %}
+            <br>
+            <span style="list-style-type: none;" class="content">{{ field.help_text }}</span>
+        {% endif %}
+    
+        <br>
+        <span class="red">{{ field.errors }}</span>
+        {% endfor %}
+
+        {% for field in profile_form %}
+       
+        {% if field.html_name == "birth_date" %}
+        <label for="{{ field.id_for_label }}">{{field.label}}</label>
+        <br>
+        {{ field }}
+
+        {% elif field.html_name == "picture" %}
+        Current {{ field.label }}<br>
+        <img id="chosen-picture-image" class="image-input-icon" src="/media/{{field.initial}}"><br>
+        <input id="input-picture-id" value="{{field.initial}}" class="image-input-file" type="file" name="{{field.html_name}}">
+        <label class="image-input-label" for="input-picture-id">Choose a file</label>
+
+        {% elif field.html_name == "banner" %}
+        Current {{ field.label }}<br>
+        <img id="chosen-banner-image" class="image-input-banner-icon" src="/media/{{field.initial}}"><br>
+        <input id="input-banner-id" value="{{field.initial}}" class="image-input-file" type="file" name="{{field.html_name}}">
+        <label class="image-input-label" for="input-banner-id">Choose a file</label>
+
+        {% else %}
+        <label for="{{ field.id_for_label }}">{{field.label}}</label>
+        <br>
+            {% if field.html_name == "display_blurb" %}
+            <input class="searchbar-create-account searchbar" maxlength="10" id="{{ field.id_for_label }}" name="{{field.html_name}}" placeholder="{{field.html_name}}" value="{{field.initial}}" type="text"/>
+            {% else %}
+            <input class="searchbar-create-account searchbar" id="{{ field.id_for_label }}" name="{{field.html_name}}" placeholder="{{field.html_name}}" value="{{field.initial}}" type="text"/>
+            {% endif %}
+        {% endif %}
+        {% if field.help_text %}
+            <br>
+            <span style="list-style-type: none;" class="content">{{ field.help_text }}</span>
+        {% endif %}
+    
+        <br>
+        <span class="red">{{ field.errors }}</span>
+        {% endfor %}
+        <br>
+        <button class="button" type="submit">Update Profile</button>
+    </form>
+    
+</div>
+    
+    
+{% endblock %}
+
+{% block javascript %}
+<script>
+    var input_banner_value;
+    var input_picture_value;
+    var reader = new FileReader();
+
+    $("#input-picture-id").change(function(){
+        input_picture_value = $("#input-picture-id")[0].files[0];
+        reader.onload = function(e) {
+            $('#chosen-picture-image').attr('src', e.target.result);
+
+        };
+        reader.readAsDataURL($("#input-picture-id")[0].files[0]);
+
+    });
+
+    $("#input-banner-id").change(function(){
+        input_banner_value = $("#input-banner-id")[0].files[0];
+        reader.onload = function(e) {
+            $('#chosen-banner-image').attr('src', e.target.result);
+
+        };
+        reader.readAsDataURL($("#input-banner-id")[0].files[0]);
+    });
+   
+</script>
+
+{% endblock %}
+
+
+

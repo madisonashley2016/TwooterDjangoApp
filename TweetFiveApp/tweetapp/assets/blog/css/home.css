@@ -1,0 +1,106 @@
+
+:root {
+    --main-background: #15202B;
+    --header-border: #3D5466;
+    --normal-border: #38444D;
+    --twoot-hover: #192734;
+    --content-text: #5F6E7C;
+    --twooter-blue-dark: #1DA1F2;
+    --twooter-blue-light: #1A91DA;
+    --search-background: #253341;
+}
+
+#home-search-bar {
+    border-radius: 0;
+    background: var(--main-background);
+    max-width: 100%;
+    padding-left: 10px;
+    margin: 0;
+}
+
+.float-twoot-button i {
+    margin-top: 20px;
+}
+#home-top-form {
+    border-bottom: 10px solid var(--search-background);
+    padding-bottom: 10px;
+}
+
+.home-middle-header {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    vertical-align: center;
+    border-bottom: 1px solid var(--header-border);
+}
+.active-profile-button {
+    text-decoration: none;
+    color: var(--twooter-blue-dark);
+    border-bottom: 3px solid var(--twooter-blue-dark);
+}
+.home-middle-header .link {
+    flex: 1;
+    color: var(--content-text);
+    font-weight: bold;
+    padding: 20px 20px;
+}
+.home-middle-header .link:hover {
+    text-decoration: none;
+    color: var(--twooter-blue-dark);
+    background: rgba(29,161,242,.1);
+}
+.home-middle-header .active {
+    text-decoration: none;
+    color: var(--twooter-blue-dark);
+    border-bottom: 3px solid var(--twooter-blue-dark);
+}
+.explore-middle-header {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    vertical-align: center;
+    border-bottom: 1px solid var(--header-border);
+}
+.explore-middle-header .link {
+    flex: 1;
+    color: var(--content-text);
+    font-weight: bold;
+    padding: 20px 20px;
+    word-break: normal;
+}
+.explore-middle-header .link:hover {
+    text-decoration: none;
+    color: var(--twooter-blue-dark);
+    background: rgba(29,161,242,.1);
+}
+.explore-middle-header .active {
+    text-decoration: none;
+    color: var(--twooter-blue-dark);
+    border-bottom: 3px solid var(--twooter-blue-dark);
+}
+#hashtag-list .hashtag {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--normal-border);
+
+}
+#hashtag-list .hashtag:hover {
+    background: var(--twoot-hover);
+}
+#hashtag-list .hashtag-status {
+    color: var(--content-text);
+}
+#hashtag-list .hashtag-name {
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 590px) {
+    #home-top-form {
+        display: none;
+    }
+}

@@ -1,0 +1,139 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'blog/css/home.css' %}" type="text/css"/>
+<link rel="stylesheet" href="{% static 'blog/css/create_twoot.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+<div class="back-button-div">
+   
+    <div class="header-back-button">
+        <button type="button"><i class="jam jam-backward"></i></button>
+    </div>
+  
+    <div> <!--Submit twoot button go to previous page.-->
+        <label id="twoot-create-label" for="create-twoot-submit-button" class="twoot-create-header-disabled button">Twoot</label>
+    </div>
+        
+</div>
+   
+<div class="twoot-create content">
+    <div class="twoot-create-icon">
+        <img class="icon" src="{{request.user.profile.picture.url}}"/>
+    </div>
+
+    <div class="twoot-create-content">
+        <form id="twoot-create-form-id" method='POST' enctype="multipart/form-data">
+            {% csrf_token %}
+            <!--Text input-->
+            <textarea class="twoot-create-input" name="content" placeholder="WHAT'S POPPIN?" maxlength="10" rows=10></textarea>
+            <!--Image preview, if image-->
+            <div class="create-twoot-img-container">
+                <img id="twoot-create-img-id" src="">
+                <span class="create-twoot-img-container-delete twoot-create-button"><i class='bx bx-trash'></i></span>
+            </div>
+
+            <div class="twoot-create-button-div">
+                <!--Select image Button and Select Emoji Button-->
+                <label class="twoot-create-button" for="twoot-create-file-id"><i class="jam jam-picture"></i></label>
+                <input type="file" id="twoot-create-file-id" name="image_content" accept="image/*">
+
+                <label class="twoot-create-button" for="emoji-button"><i class='bx bx-smile'></i></label>
+                <input style="display: none;" id="emoji-button" type="button" name="emojibutton">
+                
+                <!--Word count and Submit go to thread button-->
+                <div class="twoot-create-side-button-div">
+                    <button id="side1-button-id" class="letters-typed twoot-create-button">0</button>
+                    <div id="side2-button-id"  class="stupid-notch"></div>
+                    <button id="side3-button-id" class="twoot-create-button" type="submit" name="submitgotothread"><i class='jam jam-plus-circle' ></i></button>
+                </div>
+            </div>
+            <!--Submit button-->
+            <input style="display: none;" id="create-twoot-submit-button" disabled type="submit" name="Submit">
+            <!--Aquire the last url-->
+            <input type="hidden" name="last_url" value="{{ request.META.HTTP_REFERER }}">
+        </form>
+    </div>  
+</div>
+
+<!--header-button-enabled -->
+{% endblock %}
+{% block javascript %}
+<script>
+
+    window.onload = function() { //Reset all form values when page resets.
+        $(".twoot-create-input").val(null);
+        $("#twoot-create-file-id").replaceWith($("#twoot-create-file-id").val('').clone(true));
+   }
+   
+   var reader = new FileReader(); //For twoot image file upload. so itll show u what ur about to upload.
+    //If you add a file in.
+    $("#twoot-create-file-id").change(function(){
+        reader.onload = function(e) {
+            $('#twoot-create-img-id').attr('src', e.target.result);
+            $('#twoot-create-img-id').css('display', 'inline-block');
+            $('.create-twoot-img-container-delete').css('display', 'flex');
+        };
+        reader.readAsDataURL($("#twoot-create-file-id")[0].files[0]);
+    });
+    //If you remove image from twoot creation, this deletes it and the preview.
+   $(".create-twoot-img-container-delete").click(function(){
+        $("#twoot-create-file-id").replaceWith($("#twoot-create-file-id").val('').clone(true));
+        $('#twoot-create-img-id').attr('src', '');
+        $(this).css('display', 'none');
+        $('#twoot-create-img-id').css('display', 'none');
+        createTwootInputStatus();
+   });
+
+
+    //For emoji input.
+    const button = document.querySelector('#emoji-button');
+    const picker = new EmojiButton();
+
+    picker.on('emoji', emoji => {
+        document.querySelector('.twoot-create-input').value += emoji;
+    });
+
+    button.addEventListener('click', () => {
+        picker.togglePicker(button);
+    });
+
+    //If you change ur input to where there is no input in a twoot, then grey out the button.
+    function createTwootInputStatus(){
+        if($("#twoot-create-file-id").val().length > 0 || $(".twoot-create-input").val().length > 0){
+                $("#twoot-create-label").attr('class', 'twoot-create-header-button button');
+                $("#create-twoot-submit-button").prop("disabled", false);
+                $("#side1-button-id").css("display", "inline");
+                $("#side2-button-id").css("display", "inline");
+                $("#side3-button-id").css("display", "inline");
+            }
+        else{
+            $("#twoot-create-label").attr('class', 'twoot-create-header-disabled button');
+            $("#create-twoot-submit-button").prop("disabled", true);
+            $("#side1-button-id").css("display", "none");
+            $("#side2-button-id").css("display", "none");
+            $("#side3-button-id").css("display", "none");
+        }
+        if($(".twoot-create-input").val().length < 10){
+            $(".letters-typed").html($(".twoot-create-input").val().length);
+        }
+        else{
+            $(".letters-typed").html("<i class='bx bx-no-entry'></i>");
+        }    
+    }
+   $(".twoot-create-input").on("input", function() {
+        createTwootInputStatus();
+   });
+   $("#twoot-create-file-id").on("change", function() {
+        createTwootInputStatus();
+   });
+   picker.on("emoji", function() {
+        createTwootInputStatus();
+   });
+   
+</script>
+
+
+{% endblock %}

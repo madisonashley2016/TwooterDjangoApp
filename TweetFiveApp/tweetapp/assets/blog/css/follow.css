@@ -1,0 +1,77 @@
+.follow-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.follow-inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 5px 0 3px 0;
+    transition: .25s;
+    border-bottom: 1px solid var(--normal-border);
+}
+.follow-inner:hover {
+    background: var(--twoot-hover);
+}
+
+
+.follow-icon {
+    flex: 1 0 auto;
+    max-width: 60px;
+    max-height: 60px;
+    border-radius: 50%;
+    margin: 5px 10px;
+}
+.follow-content {
+    flex: 1;
+    padding: 5px 5px;
+}
+.follow-content #display-name {
+    color: white;
+    font-weight: bold;
+}
+.follow-content #username {
+    color: var(--content-text);
+}
+.follow-follow-button {
+    background: var(--twooter-blue-dark);
+    border-radius: 25px;
+    padding: 5px 15px;
+    margin: 0 10px;
+
+}
+.follow-follow-button button {
+    color: white;
+}
+.follow-follow-button a {
+    color: white;
+    text-decoration: none;
+}
+
+.follow-header-div {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+
+    border-bottom: 1px solid var(--header-border);
+    color: white;
+    background: var(--main-background);
+
+    position: sticky;
+    top: 0;
+    z-index: 900;
+}
+.follow-header-title {
+    padding: 0 15px;
+    font-size: 25px;
+    font-weight: 900;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,54 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% load el_pagination_tags %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'blog/css/home.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="h1div">
+    <form id="explore-header" class="flex-form" method="GET">
+        <span class="h1div-element">Explore</span>
+        <input class="searchbar" type="text" name="q" id="id_q" placeholder="Search...">
+    </form>
+</div>
+
+<div class="explore-middle-header">
+    {% if request.resolver_match.url_name == "explore_view" %}
+    <a id="trending" class="active link" href="{% url 'explore_view' %}">Trending</a>
+    <a id="latest" class="link" href="{% url 'explore_view_latest' %}">Latest</a>
+    <a id="hashtags" class="link" href="{% url 'explore_view_fancy' %}">Tags</a>
+    {% elif request.resolver_match.url_name == "explore_view_latest" %}
+    <a id="trending" class="link" href="{% url 'explore_view' %}">Trending</a>
+    <a id="latest" class="active link" href="{% url 'explore_view_latest' %}">Latest</a>
+    <a id="hashtags" class="link" href="{% url 'explore_view_fancy' %}">Tags</a>
+    {% elif request.resolver_match.url_name == "explore_view_fancy" %}
+    <a id="trending" class="link" href="{% url 'explore_view' %}">Trending</a>
+    <a id="latest" class="link" href="{% url 'explore_view_latest' %}">Latest</a>
+    <a id="hashtags" class="active link" href="{% url 'explore_view_fancy' %}">Tags</a>
+    {% endif %}
+    
+</div>
+<a href="{% url 'create_twoot_view' %}" class="float-twoot-button"><i class="fas fa-feather-alt"></i></a>
+
+<div id="explore-twoot-list-id-{{request.resolver_match.url_name}}" class="twoot-list">
+{% lazy_paginate 20 twoots %}
+{% include 'blog/twoot_list.html' %}
+</div>
+
+{% endblock %}
+
+<!--For some reason with search form, just setting the value doesnt seem to work,
+    so we do with javascript instead,
+    same thing as just saying value="{{ query }} on the input in the form, is all.-->
+{% block javascript %}
+<script type="text/javascript">
+$(document).ready(function() {
+
+    document.getElementById("id_q").value = "{{ query }}";
+    
+});
+</script>
+{% endblock %}

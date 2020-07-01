@@ -1,0 +1,71 @@
+:root {
+    --main-background: #15202B;
+    --header-border: #3D5466;
+    --normal-border: #38444D;
+    --twoot-hover: #192734;
+    --content-text: #5F6E7C;
+    --twooter-blue-dark: #1DA1F2;
+    --twooter-blue-light: #1A91DA;
+    --search-background: #253341;
+}
+
+#logoutdiv {
+    color: white;
+    font-weight: bold;
+    font-family: Impact;
+    display: flex;
+    justify-content: center;
+    margin: 10%;
+}
+
+.login-wrapper-div {
+    border-bottom: 1px solid var(--normal-border);
+    text-align: center;
+    display: flex;
+    width: 100%;
+    padding: 20px 20px;
+}
+
+
+.flex-form-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: white;
+}
+.login-searchbar {
+    background: var(--search-background);
+    color: var(--content-text);
+    max-width: 500px;
+    width: 100%;
+    padding: 15px 0px 15px 25px;
+    border-radius: 25px;
+    border: none;
+}
+
+#flex-form-create-account {
+    text-align: left;
+    margin-left: 20px;
+}
+
+.searchbar-create-account {
+    margin: auto;
+}
+
+.login-button {
+    padding: 5px 15px;
+    margin: 10px;
+}
+
+.password-reset-h1 {
+    font-weight: bold;
+    color: white;
+
+}
+.password-reset-span{
+    font-weight: bold;
+    color: var(--content-text);
+
+}

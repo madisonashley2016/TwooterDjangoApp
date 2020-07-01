@@ -1,0 +1,259 @@
+:root {
+    --main-background: #15202B;
+    --header-border: #3D5466;
+    --normal-border: #38444D;
+    --twoot-hover: #192734;
+    --content-text: #5F6E7C;
+    --twooter-blue-dark: #1da1f2;
+    --twooter-blue-light: #1A91DA;
+    --search-background: #253341;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    box-sizing: border-box;
+    /*font-family: 'Audiowide', 'PT Sans', sans-serif;*/
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    word-break: break-word;
+}
+
+#wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+    padding-right: 5px;
+    background: var(--main-background);
+}
+/*Mobile version of nav*/
+.mobile-nav {
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+
+    max-width: 600px; max-height: 50px;
+    width: 100%; height: 100%;
+    background: var(--main-background);
+    border: 1px solid var(--normal-border);
+    font-size: 20px;
+    position: sticky;
+    bottom: 0;
+}
+.mobile-nav a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+
+    text-decoration: none;
+    padding: 10px 5%;
+    
+    color: white;
+    font-weight: bold;
+    transition: .25s;
+}
+.mobile-nav a:hover {
+    text-decoration: none;
+    color: var(--twooter-blue-dark);
+    background: var(--twoot-hover);
+}
+.mobile-nav a span {
+    display: none;
+}
+/*#notifications-link {
+    display: none;
+}*/
+#messages-link {
+    display: none;
+}
+#help-link {
+    display: none;
+}
+#logout-link {
+    display: none;
+}
+.responsive-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    max-width: 600px;
+    width: 100%;
+    height: 100%;
+    
+    background: var(--main-background);
+    font-size: 20px;
+    border: 1px solid var(--normal-border);
+
+    position: sticky;
+    bottom: 0;
+}
+.responsive-nav a {
+    flex: 1;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+
+    padding: 10px 5%;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: .25s;
+}
+.responsive-nav a:hover{
+    text-decoration: none;
+    color: var(--twooter-blue-dark);
+    background: var(--twoot-hover);
+}
+.responsive-nav #mobile-nav-toggle {
+    align-self: flex-end;
+}
+
+/*Normal version of nav*/
+.main-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 15px;
+    background: var(--main-background);
+    border-right: 1px solid var(--normal-border);
+    
+    font-size: 20px;
+    word-break: normal;
+    
+}
+.main-nav-content-div {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+}
+
+.main-nav a {
+    border-radius: 40px;
+    text-decoration: none;
+    padding: 6% 15px;
+    margin: 3% 0;
+    color: white;
+    font-weight: bold;
+    transition: .25s; 
+}
+.main-nav a:hover {
+    color: var(--twooter-blue-dark);
+    background: var(--twoot-hover);
+    text-decoration: none;
+    
+}
+
+#mainnavbrand {
+    font-size: 30px;
+    color: white;
+}
+#mainnavbrand img {
+    width: 100px;
+
+}
+#mainnavbrand:hover {
+    color: white;
+    background: var(--main-background);
+}
+
+#nav-twoot-button {
+    border-radius: 40px;
+    background: var(--twooter-blue-dark);
+    color: white;
+    text-align: center;
+}
+#nav-twoot-button:hover {
+    background: rgba(29, 161, 242, .8);
+}
+
+#nav-twoot-icon-id {
+    display: none;
+}
+/*End sidebarcss*/
+
+/*Base css for everything that is not the sidebar */
+.othercontent {
+    background: var(--main-background);
+    border-right: 1px solid var(--normal-border);
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+   
+}
+@media only screen and (max-width: 820px) {
+    .main-nav a {
+        margin: 10% 10px 10% 10px;
+        padding: 10px 0;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        text-align: center;
+        
+    }
+    .main-nav a span {
+        display: none;
+    }
+
+    #nav-twoot-button {
+        height: 55px;
+        width: 55px;
+        padding: 13px 0;
+    }
+    
+
+    #nav-twoot-icon-id {
+        display: inline;
+        
+    }
+    #mainnavbrand {
+        display: none;
+    }
+    .main-nav {
+        text-align: center;
+        padding: 0 5px;
+    }
+
+    .mobile-nav {
+        display: none;
+    }
+    .responsive-nav {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 590px) {
+    #wrapper{
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+    }
+    .othercontent {
+        flex: 10;
+    }
+    .responsive-nav {
+        display: flex;
+    }
+    .mobile-nav {
+        display: flex;
+    }
+    .main-nav {
+        display: none;
+    } 
+
+}
+
+
+
