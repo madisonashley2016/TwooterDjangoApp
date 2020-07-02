@@ -29,9 +29,8 @@ DEBUG = False #Changed from True to False.
 
 ALLOWED_HOSTS = [#For deployment, ur gonnachange this to whatever the website name is.
     'localhost',
-    '.twooter.com',
-    #Example of what i would put here based on my domain name.
-                    #The . in front of it is a wildcard. so this accepts 'www.twooter.com' or 'twooter.com' or or 'www.fish.twooter.com', etc.
+    '127.0.0.1',
+    'https://royal-doright-51158.herokuapp.com/',
 ]
 
 
