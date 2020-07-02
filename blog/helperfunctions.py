@@ -265,12 +265,16 @@ def createReTwootAjax(self, pk, user):
                                     <button class="retwoot-button green twoot-button" type="submit" data-id="{pk}" data-status="retwooted" name="retwootbutton"><i class='jam jam-refresh-reverse'></i></button>
                                     <span class="green-no-hover total-retwoots">{retwoots}</span>
                                     </div>'''.format(pk=twoot.pk, retwoots=twoot.total_retwoots)
-
-    response["twoot_html3"] = '''<div class="twoot-button-inner-div">
+#was html3
+    response["twoot_html_like"] = '''<div class="twoot-button-inner-div">
                                     <button class="like-button red-unclicked twoot-button" type="submit" data-status="not_liked" data-id="{pk}" name="likebutton"><i class='bx bx-heart'></i></button>
-                                    <span class="total-retwoots">{likes}</span>
-                                    </div>
-                                </div>
+                                    <span class="total-retwoots">{likes}</span>'''.format(pk=twoot.pk, likes=twoot.total_likes)
+    response["twoot_html_like_r"] = '''<div class="twoot-button-inner-div">
+                                    <button class="like-button red twoot-button" type="submit" data-status="liked" data-id="{pk}" name="likebutton"><i class='bx bx-heart'></i></button>
+                                    <span class="red-no-hover total-retwoots">{likes}</span>'''.format(pk=twoot.pk, likes=twoot.total_likes)
+                  #was part of html3
+    response["twoot_html_last"] = '''</div>
                             </div>
-                        </div>'''.format(pk=twoot.pk, likes=twoot.total_likes)
+                        </div>
+                    </div>'''
     return response

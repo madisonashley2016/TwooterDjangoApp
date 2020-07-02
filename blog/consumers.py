@@ -88,6 +88,7 @@ class ButtonConsumer(WebsocketConsumer):
             twoot = Twoot.objects.get(pk=rt_twoot_id)
             p = twoot.retwoot.all()
             people_who_have_retwooted_this_twoot = []
+            people_who_have_liked_this_twoot = list(User.objects.filter(liked_posts__twoot=twoot).values_list("username", flat=True))
             for twoot in p:#Get everyone who has retwooted this twoot.
                 people_who_have_retwooted_this_twoot.append(twoot.author.username)
 
@@ -107,10 +108,13 @@ class ButtonConsumer(WebsocketConsumer):
                             'twoot_html2' : response["twoot_html2"],
                             'twoot_html_retwoot' : response["twoot_html_retwoot"],
                             'twoot_html_retwoot_g' : response["twoot_html_retwoot_g"],
-                            'twoot_html3' : response["twoot_html3"],
+                            'twoot_html_like' : response["twoot_html_like"],
+                            'twoot_html_like' : response["twoot_html_like_r"],
+                            'twoot_html_last' : response["twoot_html_last"],
                             'twoot_id' : rt_twoot_id,
                             'followers' : followers,
                             'people_retwooted' : people_who_have_retwooted_this_twoot,
+                            'people_liked' : people_who_have_liked_this_twoot,
                             'user' : user.username
                         }
                     )
@@ -156,17 +160,24 @@ class ButtonConsumer(WebsocketConsumer):
         twoot_html2 = event['twoot_html2']
         twoot_html_retwoot = event['twoot_html_retwoot']
         twoot_html_retwoot_g = event['twoot_html_retwoot_g']
-        twoot_html3 = event['twoot_html3']
+        twoot_html_like = event['twoot_html_like']
+        twoot_html_like_r = event['twoot_html_like_r']
+        twoot_html_last = event['twoot_html_last']
         twoot_id = event['twoot_id']
         username = event['user']
         followers = event['followers']
+        people_liked = event['people_liked']
         people_retwooted = event['people_retwooted']
 
         if username == self.scope['user'].username: #If sender then create new twoot, show retwooted for it, and for original psot
             twoot_html += twoot_html_trash #If sender, then include trash icon.
             twoot_html += twoot_html2
             twoot_html += twoot_html_retwoot_g #Green button
-            twoot_html += twoot_html3
+            if self.scope['user'].username in people_liked:
+                twoot_html += twoot_html_like_r
+            else:
+                twoot_html += twoot_html_like
+            twoot_html += twoot_html_last
             self.send(text_data=json.dumps ({
             'twoot_html' : twoot_html,
             'twoot_id' : twoot_id,
@@ -176,7 +187,11 @@ class ButtonConsumer(WebsocketConsumer):
         elif self.scope['user'].username in followers and self.scope['user'].username in people_retwooted:
             twoot_html += twoot_html2
             twoot_html += twoot_html_retwoot_g #Green button
-            twoot_html += twoot_html3
+            if self.scope['user'].username in people_liked:
+                twoot_html += twoot_html_like_r
+            else:
+                twoot_html += twoot_html_like
+            twoot_html += twoot_html_last
             self.send(text_data=json.dumps ({
             'twoot_html' : twoot_html,
             'twoot_id' : twoot_id,
@@ -186,7 +201,11 @@ class ButtonConsumer(WebsocketConsumer):
         elif self.scope['user'].username in followers: #if channel is in my(senders) followers.
             twoot_html += twoot_html2
             twoot_html += twoot_html_retwoot #Grey button
-            twoot_html += twoot_html3
+            if self.scope['user'].username in people_liked:
+                twoot_html += twoot_html_like_r
+            else:
+                twoot_html += twoot_html_like
+            twoot_html += twoot_html_last
             self.send(text_data=json.dumps ({
             'twoot_html' : twoot_html,
             'twoot_id' : twoot_id,
