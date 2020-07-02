@@ -75,9 +75,10 @@ class Profile(models.Model):
             output_size = (500,500)
             img.thumbnail(output_size)
         
-        sfile = StringIO()
+        sfile = BytesIO()
         img.save(sfile, format="JPEG")
         i.write(sfile.getvalue())
+        i.flush()
         i.close()
         m.close()
         #fh = storage.open(self.picture.name, 'wb')
