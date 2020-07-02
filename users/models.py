@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from PIL import Image, GifImagePlugin, ImageFile
+from django.core.files.storage import default_storage as storage
 
 class PersonManager(models.Manager):
     pass
@@ -62,8 +63,12 @@ class Profile(models.Model):
         if img.height > 500 or img.width > 500: #If image is too big. Then make it smaller.
             output_size = (500,500)
             img.thumbnail(output_size)
+        fh = storage.open(self.picture.name, 'wb')
+        format = 'jpg'
+        img.save(fh, format)
+        fh.close()
         #img.save(self.picture.path)
-        img.save(self.picture.name)
+        #img.save(self.picture.name)
     
         #banner_img = Image.open(self.banner.path)
         banner_img = Image.open(self.banner.name)
@@ -74,8 +79,12 @@ class Profile(models.Model):
             if banner_img.width > 1800: #If too big
                 output_size = (banner_img.height, 1800)
                 banner_img.thumbnail(output_size)
+            fh = storage.open(self.banner.name, 'wb')
+            format = 'jpg'
+            banner_img.save(fh, format)
+            fh.close()
             #banner_img.save(self.banner.path)
-            banner_img.save(self.banner.name)
+           # banner_img.save(self.banner.name)
  
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
