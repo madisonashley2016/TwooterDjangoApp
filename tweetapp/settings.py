@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret! Made it grab this from a file.
-#with open('/poop/secret_key.txt') as f:
+#with open('./poop/secret_key.txt') as f:
    # SECRET_KEY = f.read().strip()
 SECRET_KEY = os.environ['SECRET_KEY']
 
@@ -162,6 +162,8 @@ CHANNEL_LAYERS = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'madisonashley2016@gmail.com'
+#with open('./poop/email_info.txt') as f:
+    #EMAIL_HOST_PASSWORD = f.read().strip()
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
