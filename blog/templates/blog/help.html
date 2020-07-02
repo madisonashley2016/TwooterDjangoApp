@@ -22,7 +22,7 @@
         Reset Password
     </h2>
     <ul>
-        <li>If you need to reset your password, just go to this link here.</li>
+        <li>If you need to reset your password, just go to <a href="{% url 'password_reset' %}">this link here.</a></li>
         <li>If you can not remember your email address, contact us, and we can help you
         to look up your account.</li>
         <li>If you can not remember any information, we can not help you.</li>
@@ -36,7 +36,7 @@
         <li>Your profile is public, except for your email address, which is private.</li>
         <li>If you want to edit your profile, you can click the edit profile link on the 
         upper right hand corner of your profile.</li>
-        <li>Pictures that you upload will be automatically cropped by the machine. </li>
+        <li>Pictures that you upload will be automatically cropped.</li>
     </ul>
     
     <h1>
@@ -49,7 +49,9 @@
         <li>If you retwoot a twoot it will only show up on you and your followers homepages.</li>
         <li>If you make a twoot, and it gets popular, it can potentially show up on the Explore page under trending.</li>
         <li>If you want to follow a user, click on their username, and follow them from their profile.</li>
-        <li>If you want to comment on a twoot, just click anywhere on the twoot to get to the comments page.</li>
+        <li>If you want to comment on a twoot, just click anywhere on the twoot to get to the comments page.
+            Or click the comment button.
+        </li>
     </ul>
 
     <h1>
@@ -59,17 +61,12 @@
         <li>No pooping.</li>
         <li>No lizard people allowed.</li>
         <li>No rudeness or meanness.</li>
-        <li>No bigotry of any kind. Open minded people only!</li>
-        <li>NO POOPING!!!!!</li>
-        <li>No illegal activity discussion.</li>
-        <li>No asking for money.</li>
-        
     </ul>
  
     <h1>
         Contact the Supreme Robot
     </h1>
-    <p>Do not contact me if you can figure it out by yourself!!!!</p>
+    <p>Insert your worries below.</p>
     <form class="flex-form" method="POST" style="display: inline;">
         {% csrf_token %}
         <input class="forms" type="email" name="email" placeholder="email@email.com">

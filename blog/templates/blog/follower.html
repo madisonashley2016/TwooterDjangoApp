@@ -20,7 +20,7 @@
 <div class="follow-wrapper">
     {% for f in follow %}
     <div  data-url="{% url 'profile_view' f.username %}" class="follow-inner divgotourl">
-        <div>
+        <div class="follow-icon-div">
             <img class="follow-icon" src="{{f.profile.picture.url}}"/>
         </div>
         <div class="follow-content">

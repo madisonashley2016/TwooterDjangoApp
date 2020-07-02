@@ -33,7 +33,7 @@
 </div>
 <div class="message-wrapper">
     <div  data-url="{% url 'profile_view' group.admin.username %}" class="message-info-user divgotourl">
-        <div>
+        <div class="messages-icon-div display-none">
             <img class="message-icon" src="{{group.admin.profile.picture.url}}"/>
         </div>
         <div class="message-info-content">
@@ -63,7 +63,7 @@
     {% for user in group.getMyUsers %}
     {% if user != group.admin %}
     <div  data-url="{% url 'profile_view' user.username %}" class="message-info-user divgotourl">
-        <div>
+        <div class="messages-icon-div display-none">
             <img class="message-icon" src="{{user.profile.picture.url}}"/>
         </div>
         <div class="message-info-content">

@@ -62,7 +62,7 @@
     <div data-url="{% url 'message_detail_view' pk=group.pk %}" class="message-info-user divgotourl">
      
         {% if group.hasMessages == True %}
-        <div>
+        <div class="messages-icon-div">
             <img class="messages-icon" src="{{group.getMostRecentMessage.sender.profile.picture.url}}"/>
         </div>
         <div class="messages-content-wrapper">
@@ -83,7 +83,7 @@
             <div class="messages-content-time content">{{ group.getMostRecentMessage.time }}</div>
         </div>
         {% else %}
-        <div>
+        <div class="messages-icon-div">
             <img class="icon" src="{{group.admin.profile.picture.url}}"/>
         </div>
         <div class="messages-content-wrapper">

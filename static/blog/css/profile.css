@@ -13,34 +13,29 @@
     background: var(--main-background);
     color: white;
 }
-.crop {
-    width: 100%;
-    height: 250px;
-    overflow: hidden;
-}
+
 .wrapper {
     position: relative;
 }
-.bannerimg {
+.banner-img-wrapper {
     position: relative;
-    top: 0px;
-    left: 0px;
-    max-width: 100%;
+    width: 100%; height: 200px;
+}
+.bannerimg {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
-.profileimg {
+.profile-img-wrapper {
     position: absolute;
-    bottom: -20px;
-    left: 7px;
-
-    max-width: 150px;
-    height: auto;
+    bottom: -20px; left: 7px;
+    width: 150px; height: 150px;
+}
+.profileimg {
+    width: 100%; height: 100%;
     object-fit: cover;
-
     border: 5px solid var(--main-background);
-
     border-radius: 50%;
-    overflow: hidden;
 }
 
 .profile-content {
@@ -130,14 +125,20 @@
     color: white;
     display: inline-block;
 }
+.edit-picture-div {
+    width: 100px; height: 100px;
+}
 .image-input-icon {
-    width: 100px;
-    height: 100px;
+    width: 100%; height: 100%;
+    object-fit: cover;
     border-radius: 50%;
 }
+.edit-banner-div {
+    width: 300px; height: 100px;
+}
 .image-input-banner-icon {
-    width: 300px;
-    height: 100px;
+    width: 100%; height: 100%;
+    object-fit: cover;
     border-radius: 10px;
 }
 

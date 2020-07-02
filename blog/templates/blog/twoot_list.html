@@ -10,12 +10,12 @@
        
         <div class="retwoot-twoot-text-div">
             <a class="content" href="{% url 'profile_view' username=twoot.author.username %}">
-            <i class='jam jam-refresh-reverse'></i> {{ twoot.author.profile.display_name }} Retweeted</a>
+            <i class='jam jam-refresh-reverse'></i> {{ twoot.author.profile.display_name }} Retwooted</a>
         </div> 
 
         <div class="twoot-content-wrapper content">
 
-            <div>
+            <div class="twoot-list-icon-div">
                 <img class="icon" src="{{twoot.twoots.author.profile.picture.url}}"/>
             </div>
 
@@ -84,7 +84,7 @@
     <div data-url="{% url 'twoot_detail_view' pk=twoot.pk %}" data-twoot-id="{{twoot.pk}}" class="twoot divgotourl">
        
         <div class="twoot-content-wrapper content">
-            <div>
+            <div class="twoot-list-icon-div">
                 <img class="icon" src="{{twoot.author.profile.picture.url}}"/>
             </div>
 

@@ -9,13 +9,21 @@
     --search-background: #253341;
 }
 
-.messages-icon {
-    flex: 1 0;
-    max-width: 75px;
-    max-height: 75px;
-    border-radius: 50%;
-    margin: 10px 10px;
+.messages-icon-div {
+    width: 75px; height: 75px;
+    margin: 10px;
 }
+.messages-icon {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.message-icon {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 50%; 
+}
+
 .messages-content-wrapper {
     flex: 1;
     max-width: 100%;
@@ -233,13 +241,6 @@
     width: 100%;
     
 }
-.message-icon {
-    flex: 1 0 auto;
-    max-width: 60px;
-    max-height: 60px;
-    border-radius: 50%;
-    margin: 10px;
-}
 
 /* For the message input */
 #message-send-container-outer {
@@ -361,7 +362,7 @@
     .message-container-inner {
         margin-right: 6%;
     }
-    .message-icon {
+    .messages-icon-div.display-none {
         display: none;
     }
  

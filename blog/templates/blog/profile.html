@@ -1,7 +1,6 @@
 {% extends "blog/base.html" %}
 {% load static %}
 {% load el_pagination_tags %}
-
 {% block head %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'blog/css/home.css' %}" />
@@ -19,8 +18,14 @@
     </div>
 
     <div class="wrapper">
-        <img class="crop bannerimg" src="{{ user.profile.banner.url }}" alt="{{ user.username }}s banner image">
-        <img class="profileimg" src="{{ user.profile.picture.url }}" alt="{{ user.username }}s profile picture">
+        <div class="banner-img-wrapper">
+            <img class="bannerimg" src="{{ user.profile.banner.url }}" alt="{{ user.username }}s banner image">
+        </div>
+        
+        <div class="profile-img-wrapper">
+            <img class="profileimg" src="{{ user.profile.picture.url }}" alt="{{ user.username }}s profile picture">
+        </div>
+        
     </div>
 
     {% csrf_token %}

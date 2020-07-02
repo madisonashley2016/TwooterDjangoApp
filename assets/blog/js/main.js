@@ -7,7 +7,6 @@ $(document).ready(function(){
         window.location.reload();
     }
     });
-    
     //Infinite back button.
     $(".header-back-button").on('click', function() {
         sessionStorage.setItem("back_button_clicked", "Yes");
@@ -41,7 +40,6 @@ $(document).ready(function(){
                 e.preventDefault();
                 var twoot = $(this).attr('data-id');
                 var status = $(this).attr('data-status');
-        
                 buttonSocket.send(JSON.stringify({
                     'retwoot_twoot_id' : twoot,
                     'status' : status,
@@ -52,7 +50,6 @@ $(document).ready(function(){
        
         }
     });
-
     //When you click this bit, it goes to url. Makes divs able to be urls.
     $(".divgotourl").click(function(e){
         if(!$(e.target).is("button") && !$(e.target).is("i") && !$(e.target).is("a")){
@@ -67,8 +64,6 @@ $(document).ready(function(){
         scrollpos = $(window).scrollTop();
         localStorage.setItem('scrollpos', scrollpos);
     });*/
-    
-    //************************************************************************
 
     //Web Socket stuff lit lit for the like button.
     //Create websocket buttonsocket, will be used for all main processes.
@@ -79,8 +74,6 @@ $(document).ready(function(){
         + '/ws'
         + window.location.pathname
     );
-    console.log("The websocket: " + buttonSocket);
-    console.log("The url: " + window.location.host + '/ws' + window.location.pathname);
 
     //When like button is clicked, send to server the clicked button. and its state.
     $(".like-button").click(function(e) {
@@ -97,7 +90,6 @@ $(document).ready(function(){
         e.preventDefault();
         var twoot = $(this).attr('data-id');
         var status = $(this).attr('data-status');
-
         buttonSocket.send(JSON.stringify({
             'retwoot_twoot_id' : twoot,
             'status' : status,
@@ -109,7 +101,6 @@ $(document).ready(function(){
      var tcform = $("#twoot-create-form-id");   
      tcform.submit(function(e) {
          var tcformdata = tcform.get(0);
-         
          e.preventDefault();
          $.ajax({
              type: tcform.attr('method'),
@@ -118,12 +109,6 @@ $(document).ready(function(){
              processData: false,
              contentType: false,
              success: function(data){
-                 console.log("Success on returning ajax method -- Twoot style!!.");
-                 console.log("Here is our data");
-                 console.log("twoot_html: " + data.twoot_html);
-                 console.log("twoot_html1: " + data.twoot_html1);
-                 console.log("twoot_html2: " + data.twoot_html2);
-                 console.log("Now we send over our sexy data...");
                  buttonSocket.send(JSON.stringify( {
                      'twoot_html' : data.twoot_html,
                      'twoot_html1' : data.twoot_html1,
@@ -148,13 +133,6 @@ $(document).ready(function(){
              processData: false,
              contentType: false,
              success: function(data){
-                 console.log("Success on returning ajax method -- comment style!.");
-                 console.log("Here is our data");
-                 console.log("twoot_html: " + data.twoot_html);
-                 console.log("twoot_html1: " + data.twoot_html1);
-                 console.log("twoot_html2: " + data.twoot_html2);
-                 console.log("parent_pk: " + data.parent_pk);
-                 console.log("Now we send over our sexy data...");
                  buttonSocket.send(JSON.stringify( {
                      'twoot_html' : data.twoot_html,
                      'twoot_html1' : data.twoot_html1,
@@ -176,7 +154,6 @@ $(document).ready(function(){
             $(".like-button[data-id='"+ data.like_id + "']").each(function() {
                 var num_likes = parseInt($(this).next().text());
                 var i_am_liker = data.i_am_liker;
-
                 if(data.status == "liked"){
                     num_likes += 1;
                    $(this).next().text(num_likes);
@@ -241,11 +218,9 @@ $(document).ready(function(){
             }
         } 
         if(data.type == 'retwoot'){ //Add appending to top of ur profile as well...
-            
             //Add to retwoot count for all instances of this post that are loaded.
             $(".retwoot-button[data-id=" + data.twoot_id + "]").each(function() {
                 var retwoot_count = parseInt($(this).next().text());
-                console.log("retwoot count: " + retwoot_count);
                 retwoot_count += 1;
                 $(this).next().html(retwoot_count);
             });
@@ -272,7 +247,6 @@ $(document).ready(function(){
             //If delete, then get all retwoots that have got id=one that was deleted, and remove them.
             var pk = "retwoot_" + data.delete_id;
             $(".twoot[data-twoot-id=" + pk + "]").each( function() {
-                console.log("each! delete_id: " + data.delete_id +" my data_twoot_id: " + $(this).attr("data-twoot-id"));
                 $(this).css("display", "none");
             });
             if(data.me){ //on original post, if I am the retwooter, then fix the retwoot button back to grey and shit.

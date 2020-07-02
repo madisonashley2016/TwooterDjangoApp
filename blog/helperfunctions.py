@@ -91,7 +91,7 @@ def createTwootAjax(self, request, response, *args, **kwargs):
         twoot.save()
         response['twoot_html'] = '''<div data-url="{twoot_detail_view}" data-twoot-id="{pk}" class="twoot divgotourl"> 
                                         <div class="twoot-content-wrapper content">
-                                            <div class="twoot-icon">
+                                            <div class="twoot-list-icon-div">
                                                 <img class="icon" src="{twoot_icon_src}"/>
                                             </div>
                                         <div class="twoot-content-inner">
@@ -164,7 +164,7 @@ def createCommentAjax(self, request, response, pk, *args, **kwargs):
         twoot.save()#Save your new comment :D
         response['twoot_html'] = '''<div data-url="{twoot_detail_view}" data-twoot-id="{pk}" class="twoot divgotourl"> 
                                         <div class="twoot-content-wrapper content">
-                                            <div class="twoot-icon">
+                                            <div class="twoot-list-icon-div">
                                                 <img class="icon" src="{twoot_icon_src}"/>
                                             </div>
                                         <div class="twoot-content-inner">
@@ -219,10 +219,10 @@ def createReTwootAjax(self, pk, user):
     <div data-url="{twoot_detail_view}" data-twoot-id="retwoot_{retwoot_pk}" class="twoot divgotourl"> 
         <div class="retwoot-twoot-text-div">
             <a class="content" href="{retwoot_profile_view}"> 
-            <i class='jam jam-refresh-reverse'></i> {retwoot_display_name} Retweeted</a>
+            <i class='jam jam-refresh-reverse'></i> {retwoot_display_name} Retwooted</a>
         </div> 
             <div class="twoot-content-wrapper content">
-                <div class="twoot-icon">
+                <div class="twoot-list-icon-div">
                     <img class="icon" src="{twoot_icon_src}"/>
                 </div>
             <div class="twoot-content-inner">
