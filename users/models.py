@@ -27,8 +27,8 @@ class Profile(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     date_joined = models.DateField(auto_now_add=True)
     #picture = models.ImageField(upload_to="profile_pics", default="profile_pics/roboraptor.jpg")
-    picture = models.ImageField(upload_to="profile_pics", default="http://fancys3bucket.amazonaws.com/media/profile_pics/roboraptor.jpg")
-    banner = models.ImageField(upload_to="banner_pics", default="http://fancys3bucket.amazonaws.com/media/banner_pics/facade.jpg")
+    picture = models.ImageField(upload_to="profile_pics", default="profile_pics/roboraptor.jpg")
+    banner = models.ImageField(upload_to="banner_pics", default="facade.jpg")
 
     def __str__(self):
         return self.user.username
@@ -45,7 +45,8 @@ class Profile(models.Model):
         
     def save(self, *args, **kwargs):
         super(Profile, self).save(*args, **kwargs)
-        img = Image.open(self.picture.path)
+        #img = Image.open(self.picture.path)
+        img = Image.open(self.picture.name)
         if img.height > img.width: #If image is not square. Then make it square.
             left = 0
             right = img.width
@@ -61,9 +62,11 @@ class Profile(models.Model):
         if img.height > 500 or img.width > 500: #If image is too big. Then make it smaller.
             output_size = (500,500)
             img.thumbnail(output_size)
-        img.save(self.picture.path)
+        #img.save(self.picture.path)
+        img.save(self.picture.name)
     
-        banner_img = Image.open(self.banner.path)
+        #banner_img = Image.open(self.banner.path)
+        banner_img = Image.open(self.banner.name)
         if banner_img.format != 'GIF':
             if banner_img.height > 600: #If too big
                 output_size = (600, banner_img.width)
@@ -71,7 +74,8 @@ class Profile(models.Model):
             if banner_img.width > 1800: #If too big
                 output_size = (banner_img.height, 1800)
                 banner_img.thumbnail(output_size)
-            banner_img.save(self.banner.path)
+            #banner_img.save(self.banner.path)
+            banner_img.save(self.banner.name)
  
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
