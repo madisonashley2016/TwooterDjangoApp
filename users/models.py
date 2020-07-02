@@ -2,8 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from PIL import Image, GifImagePlugin, ImageFile
+from PIL import Image, ImageFile
 from django.core.files.storage import default_storage as storage
+#import boto3
+from io import BytesIO
+import StringIO
 
 class PersonManager(models.Manager):
     pass
@@ -44,30 +47,40 @@ class Profile(models.Model):
         followers = User.objects.filter(following__followed=self.user)
         return followers
         
-    #def save(self, *args, **kwargs):
-        #super(Profile, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        super(Profile, self).save(*args, **kwargs)
+       # img = Image.open(self.picture.name)
+
         #img = Image.open(self.picture.path)
         #fh = storage.open(self.picture.name, 'wb')
         #fh = storage.open(self.picture.name, 'rb')
         #img = Image.open(fh)
         #fh.close()
+        i = storage.open(self.picture.name, 'w+')
+        m = storage.open(self.picture.name, 'r')
+        img = Image.open(m)
         
-        #if img.height > img.width: #If image is not square. Then make it square.
-        #    left = 0
-        #    right = img.width
-        #    top = (img.height - img.width) / 2
-        #    bottom = (img.height + img.width) / 2
-        #    img = img.crop((left, top, right, bottom))
-       # elif img.width > img.height:
-        #    left = (img.width - img.height) / 2
-        #    right = (img.width + img.height) / 2
-        #    top = 0
-        #    bottom = img.height
-        #    img = img.crop((left, top, right, bottom))
-        #if img.height > 500 or img.width > 500: #If image is too big. Then make it smaller.
-       #     output_size = (500,500)
-        #    img.thumbnail(output_size)
+        if img.height > img.width: #If image is not square. Then make it square.
+            left = 0
+            right = img.width
+            top = (img.height - img.width) / 2
+            bottom = (img.height + img.width) / 2
+            img = img.crop((left, top, right, bottom))
+        elif img.width > img.height:
+            left = (img.width - img.height) / 2
+            right = (img.width + img.height) / 2
+            top = 0
+            bottom = img.height
+            img = img.crop((left, top, right, bottom))
+        if img.height > 500 or img.width > 500: #If image is too big. Then make it smaller.
+            output_size = (500,500)
+            img.thumbnail(output_size)
         
+        sfile = StringIO.StringIO()
+        img.save(sfile, format="JPEG")
+        i.write(sfile.getvalue())
+        i.close()
+        m.close()
         #fh = storage.open(self.picture.name, 'wb')
        # format = 'jpg'
        # img.save(fh, format)
