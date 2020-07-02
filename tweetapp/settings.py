@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'channels',
     'mptt',
     'el_pagination',
+    'storages',
     #my apps
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
@@ -165,7 +166,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'madisonashley2016@gmail.com'
 #with open('./poop/email_info.txt') as f:
-   # EMAIL_HOST_PASSWORD = f.read().strip()
+    #EMAIL_HOST_PASSWORD = f.read().strip()
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
@@ -180,3 +181,12 @@ SESSION_COOKIE_SECURE = True
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
+
+
+#Setting for aws s3 stuff
+AWS_QUERYSTRING_AUTH = False
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
+MEDIA_URL = 'http://%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto.S3BotoStorage"
