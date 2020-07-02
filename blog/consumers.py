@@ -109,7 +109,7 @@ class ButtonConsumer(WebsocketConsumer):
                             'twoot_html_retwoot' : response["twoot_html_retwoot"],
                             'twoot_html_retwoot_g' : response["twoot_html_retwoot_g"],
                             'twoot_html_like' : response["twoot_html_like"],
-                            'twoot_html_like' : response["twoot_html_like_r"],
+                            'twoot_html_like_r' : response["twoot_html_like_r"],
                             'twoot_html_last' : response["twoot_html_last"],
                             'twoot_id' : rt_twoot_id,
                             'followers' : followers,

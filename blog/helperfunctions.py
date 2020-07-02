@@ -270,7 +270,7 @@ def createReTwootAjax(self, pk, user):
                                     <button class="like-button red-unclicked twoot-button" type="submit" data-status="not_liked" data-id="{pk}" name="likebutton"><i class='bx bx-heart'></i></button>
                                     <span class="total-retwoots">{likes}</span>'''.format(pk=twoot.pk, likes=twoot.total_likes)
     response["twoot_html_like_r"] = '''<div class="twoot-button-inner-div">
-                                    <button class="like-button red twoot-button" type="submit" data-status="liked" data-id="{pk}" name="likebutton"><i class='bx bx-heart'></i></button>
+                                    <button class="like-button red twoot-button" type="submit" data-status="liked" data-id="{pk}" name="likebutton"><i class='bx bxs-heart'></i></button>
                                     <span class="red-no-hover total-retwoots">{likes}</span>'''.format(pk=twoot.pk, likes=twoot.total_likes)
                   #was part of html3
     response["twoot_html_last"] = '''</div>

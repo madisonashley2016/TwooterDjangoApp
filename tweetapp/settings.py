@@ -166,7 +166,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'madisonashley2016@gmail.com'
 #with open('./poop/email_info.txt') as f:
-    #EMAIL_HOST_PASSWORD = f.read().strip()
+   # EMAIL_HOST_PASSWORD = f.read().strip()
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
@@ -188,7 +188,6 @@ AWS_QUERYSTRING_AUTH = False
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
-AWS_STORAGE_BUCKET_NAME = 'fancys3bucket'
 AWS_S3_REGION_NAME = 'us-east-2'
 MEDIA_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 MEDIA_ROOT = MEDIA_URL
