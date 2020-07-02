@@ -5,8 +5,7 @@ from django.dispatch import receiver
 from PIL import Image, ImageFile
 from django.core.files.storage import default_storage as storage
 #import boto3
-from io import BytesIO
-import StringIO
+from io import BytesIO, StringIO
 
 class PersonManager(models.Manager):
     pass
@@ -76,7 +75,7 @@ class Profile(models.Model):
             output_size = (500,500)
             img.thumbnail(output_size)
         
-        sfile = StringIO.StringIO()
+        sfile = StringIO()
         img.save(sfile, format="JPEG")
         i.write(sfile.getvalue())
         i.close()
