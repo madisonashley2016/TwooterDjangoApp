@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret! Made it grab this from a file.
 #with open('./poop/secret_key.txt') as f:
-   # SECRET_KEY = f.read().strip()
+    #SECRET_KEY = f.read().strip()
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -153,8 +153,10 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG" : {
-            "hosts": [('localhost', 6379)],
+            #"hosts": [('localhost', 6379)], changed for deployment.
+            "hosts" : [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
         },
+        "symmetric_encryption_keys" : [SECRET_KEY],
     },
 }
 
