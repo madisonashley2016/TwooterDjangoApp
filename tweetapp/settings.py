@@ -30,7 +30,7 @@ DEBUG = False #Changed from True to False.
 ALLOWED_HOSTS = [#For deployment, ur gonnachange this to whatever the website name is.
     'localhost',
     '127.0.0.1',
-    'https://royal-doright-51158.herokuapp.com/',
+    'royal-doright-51158.herokuapp.com',
 ]
 
 
