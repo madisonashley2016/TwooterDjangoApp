@@ -14,6 +14,7 @@ import django #added
 from channels.routing import get_default_application #added for deployment
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tweetapp.settings')
+os.environ['ASGI_THREADS']="4" #added.
 
 django.setup() #added
 

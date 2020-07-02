@@ -179,7 +179,7 @@ SESSION_COOKIE_SECURE = True
 
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
+db_from_env = dj_database_url.config() #conn_max_age=500 removed.
 DATABASES['default'].update(db_from_env)
 
 
@@ -190,7 +190,6 @@ AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
 AWS_STORAGE_BUCKET_NAME = 'fancys3bucket'
 AWS_S3_REGION_NAME = 'us-east-2'
-#MEDIA_URL = 'http://%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
 MEDIA_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 MEDIA_ROOT = MEDIA_URL
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
