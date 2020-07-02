@@ -39,13 +39,14 @@
 
         {% elif field.html_name == "picture" %}
         Current {{ field.label }}<br>
-        <img id="chosen-picture-image" class="image-input-icon" src="/media/{{field.initial}}"><br>
+        <img id="chosen-picture-image" class="image-input-icon" src="http://fancys3bucket.amazonaws.com/media/{{field.initial}}"><br>
         <input id="input-picture-id" value="{{field.initial}}" class="image-input-file" type="file" name="{{field.html_name}}">
         <label class="image-input-label" for="input-picture-id">Choose a file</label>
 
         {% elif field.html_name == "banner" %}
-        Current {{ field.label }}<br>
-        <img id="chosen-banner-image" class="image-input-banner-icon" src="/media/{{field.initial}}"><br>
+        Current {{ field.label }}<br><!--http://fancys3bucket.amazonaws.com/media/-->
+        <!--<img id="chosen-banner-image" class="image-input-banner-icon" src="/media/{{field.initial}}"><br>-->
+        <img id="chosen-banner-image" class="image-input-banner-icon" src="http://fancys3bucket.amazonaws.com/media/{{field.initial}}"><br>
         <input id="input-banner-id" value="{{field.initial}}" class="image-input-file" type="file" name="{{field.html_name}}">
         <label class="image-input-label" for="input-banner-id">Choose a file</label>
 

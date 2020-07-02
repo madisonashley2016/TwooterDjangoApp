@@ -26,8 +26,9 @@ class Profile(models.Model):
     location = models.CharField(max_length=30, blank=True, null=True)
     birth_date = models.DateField(null=True, blank=True)
     date_joined = models.DateField(auto_now_add=True)
-    picture = models.ImageField(upload_to="profile_pics", default="profile_pics/roboraptor.jpg")
-    banner = models.ImageField(upload_to="banner_pics", default="banner_pics/facade.jpg")
+    #picture = models.ImageField(upload_to="profile_pics", default="profile_pics/roboraptor.jpg")
+    picture = models.ImageField(upload_to="profile_pics", default="http://fancys3bucket.amazonaws.com/media/profile_pics/roboraptor.jpg")
+    banner = models.ImageField(upload_to="banner_pics", default="http://fancys3bucket.amazonaws.com/media/banner_pics/facade.jpg")
 
     def __str__(self):
         return self.user.username
@@ -44,9 +45,7 @@ class Profile(models.Model):
         
     def save(self, *args, **kwargs):
         super(Profile, self).save(*args, **kwargs)
-        print("SAVING")
         img = Image.open(self.picture.path)
-        print("IMAGE NOTTT IS GIF")
         if img.height > img.width: #If image is not square. Then make it square.
             left = 0
             right = img.width
@@ -66,7 +65,6 @@ class Profile(models.Model):
     
         banner_img = Image.open(self.banner.path)
         if banner_img.format != 'GIF':
-            print("BANNER IS NOT GIF")
             if banner_img.height > 600: #If too big
                 output_size = (600, banner_img.width)
                 banner_img.thumbnail(output_size)
@@ -74,8 +72,6 @@ class Profile(models.Model):
                 output_size = (banner_img.height, 1800)
                 banner_img.thumbnail(output_size)
             banner_img.save(self.banner.path)
-        else:
-            print("BANNER IS GIF")
  
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
