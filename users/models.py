@@ -44,53 +44,53 @@ class Profile(models.Model):
         followers = User.objects.filter(following__followed=self.user)
         return followers
         
-    def save(self, *args, **kwargs):
-        super(Profile, self).save(*args, **kwargs)
+    #def save(self, *args, **kwargs):
+        #super(Profile, self).save(*args, **kwargs)
         #img = Image.open(self.picture.path)
         #fh = storage.open(self.picture.name, 'wb')
-        fh = storage.open(self.picture.name, 'rb')
-        img = Image.open(fh)
-        fh.close()
+        #fh = storage.open(self.picture.name, 'rb')
+        #img = Image.open(fh)
+        #fh.close()
         
-        if img.height > img.width: #If image is not square. Then make it square.
-            left = 0
-            right = img.width
-            top = (img.height - img.width) / 2
-            bottom = (img.height + img.width) / 2
-            img = img.crop((left, top, right, bottom))
-        elif img.width > img.height:
-            left = (img.width - img.height) / 2
-            right = (img.width + img.height) / 2
-            top = 0
-            bottom = img.height
-            img = img.crop((left, top, right, bottom))
-        if img.height > 500 or img.width > 500: #If image is too big. Then make it smaller.
-            output_size = (500,500)
-            img.thumbnail(output_size)
+        #if img.height > img.width: #If image is not square. Then make it square.
+        #    left = 0
+        #    right = img.width
+        #    top = (img.height - img.width) / 2
+        #    bottom = (img.height + img.width) / 2
+        #    img = img.crop((left, top, right, bottom))
+       # elif img.width > img.height:
+        #    left = (img.width - img.height) / 2
+        #    right = (img.width + img.height) / 2
+        #    top = 0
+        #    bottom = img.height
+        #    img = img.crop((left, top, right, bottom))
+        #if img.height > 500 or img.width > 500: #If image is too big. Then make it smaller.
+       #     output_size = (500,500)
+        #    img.thumbnail(output_size)
         
-        fh = storage.open(self.picture.name, 'wb')
-        format = 'jpg'
-        img.save(fh, format)
-        fh.close()
+        #fh = storage.open(self.picture.name, 'wb')
+       # format = 'jpg'
+       # img.save(fh, format)
+       # fh.close()
         #img.save(self.picture.path)
         #img.save(self.picture.name)
     
         #banner_img = Image.open(self.banner.path)
-        fh = storage.open(self.banner.name, 'rb')
-        banner_img = Image.open(fh)
-        fh.close()
-        if banner_img.format != 'GIF':
-            if banner_img.height > 600: #If too big
-                output_size = (600, banner_img.width)
-                banner_img.thumbnail(output_size)
-            if banner_img.width > 1800: #If too big
-                output_size = (banner_img.height, 1800)
-                banner_img.thumbnail(output_size)
+        #fh = storage.open(self.banner.name, 'rb')
+        #banner_img = Image.open(fh)
+        #fh.close()
+        #if banner_img.format != 'GIF':
+        #    if banner_img.height > 600: #If too big
+        #        output_size = (600, banner_img.width)
+        #        banner_img.thumbnail(output_size)
+        #    if banner_img.width > 1800: #If too big
+       #         output_size = (banner_img.height, 1800)
+       #         banner_img.thumbnail(output_size)
 
-            fh = storage.open(self.banner.name, 'wb')
-            format = 'jpg'
-            banner_img.save(fh, format)
-            fh.close()
+       #     fh = storage.open(self.banner.name, 'wb')
+       #     format = 'jpg'
+        #    banner_img.save(fh, format)
+        #    fh.close()
             #banner_img.save(self.banner.path)
            # banner_img.save(self.banner.name)
  
