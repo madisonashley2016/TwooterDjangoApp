@@ -106,7 +106,7 @@ def createTwootAjax(self, request, response, *args, **kwargs):
                                                                 username=twoot.author.username,
                                                                 time=twoot.time_posted_formatted, pk=twoot.pk)
         if twoot.is_child_node():
-            response['twoot_html'] += '''Replying to <a href="{child_profile_view}">@{twoot_parent}</a>
+            response['twoot_html'] += '''<span>Replying to <a href="{child_profile_view}">@{twoot_parent}</a></span>
             '''.format(child_profile_view=reverse('profile_view', kwargs={'username':twoot.parent.author.username}), twoot_parent=twoot.parent.author.username)                                                                                              
         response['twoot_html'] += '''<div class="twoot-content-true content-white">{content}</div>
         '''.format(content=twoot.content)
@@ -121,6 +121,7 @@ def createTwootAjax(self, request, response, *args, **kwargs):
                                         </div>'''.format(delete_url=reverse('deletepost', kwargs={'pk':twoot.pk}))
         response['twoot_html2'] =  '''<div class="twoot-button-inner-div">
                                         <a href="{create_comment_url}" class="twoot-button"><i class='bx bx-conversation'></i></a>
+                                        <span class="total-retwoots" data-id="comment_count_{pk}">{get_descendant_count}</span>
                                         </div>
                                         <div class="twoot-button-inner-div">
                                         <button class="retwoot-button green-unclicked twoot-button" type="submit" data-id="{pk}" data-status="not_retwooted" name="retwootbutton"><i class='jam jam-refresh-reverse'></i></button>
@@ -132,7 +133,7 @@ def createTwootAjax(self, request, response, *args, **kwargs):
                                         </div>
                                     </div>
                                 </div>
-                            </div>'''.format(pk=twoot.pk, retwoots=twoot.total_retwoots,
+                            </div>'''.format(pk=twoot.pk, retwoots=twoot.total_retwoots, get_descendant_count=twoot.get_descendant_count(),
                                 likes=twoot.total_likes, create_comment_url=reverse('create_comment_view', kwargs={'pk':twoot.pk}))
 
 def createCommentAjax(self, request, response, pk, *args, **kwargs):
@@ -179,7 +180,7 @@ def createCommentAjax(self, request, response, pk, *args, **kwargs):
                                                                 username=twoot.author.username,
                                                                 time=twoot.time_posted_formatted, pk=twoot.pk)
         if twoot.is_child_node():
-            response['twoot_html'] += '''Replying to <a href="{child_profile_view}">@{twoot_parent}</a>
+            response['twoot_html'] += '''<span>Replying to <a href="{child_profile_view}">@{twoot_parent}</a></span>
             '''.format(child_profile_view=reverse('profile_view', kwargs={'username':twoot.parent.author.username}), twoot_parent=twoot.parent.author.username)                                                                                              
         response['twoot_html'] += '''<div class="twoot-content-true content-white">{content}</div>
         '''.format(content=twoot.content)
@@ -194,6 +195,7 @@ def createCommentAjax(self, request, response, pk, *args, **kwargs):
                                         </div>'''.format(delete_url=reverse('deletepost', kwargs={'pk':twoot.pk}))
         response['twoot_html2'] =  '''<div class="twoot-button-inner-div">
                                         <a href="{create_comment_url}" class="twoot-button"><i class='bx bx-conversation'></i></a>
+                                        <span class="total-retwoots" data-id="comment_count_{pk}">{get_descendant_count}</span>
                                         </div>
                                         <div class="twoot-button-inner-div">
                                         <button class="retwoot-button green-unclicked twoot-button" type="submit" data-id="{pk}" data-status="not_retwooted" name="retwootbutton"><i class='jam jam-refresh-reverse'></i></button>
@@ -205,7 +207,7 @@ def createCommentAjax(self, request, response, pk, *args, **kwargs):
                                         </div>
                                     </div>
                                 </div>
-                            </div>'''.format(pk=twoot.pk, retwoots=twoot.total_retwoots,
+                            </div>'''.format(pk=twoot.pk, retwoots=twoot.total_retwoots, get_descendant_count=twoot.get_descendant_count(),
                                     likes=twoot.total_likes, create_comment_url=reverse('create_comment_view', kwargs={'pk':twoot.pk}))
         response['parent_pk'] = pk
 
@@ -239,7 +241,7 @@ def createReTwootAjax(self, pk, user):
                                     retwoot_profile_view=reverse('profile_view', kwargs={'username':retwoot.author.username}),
                                     retwoot_display_name=retwoot.author.profile.display_name, retwoot_pk=retwoot.pk)
     if twoot.is_child_node():
-        response["twoot_html"] += '''Replying to <a href="{child_profile_view}">@{twoot_parent}</a>
+        response["twoot_html"] += '''<span>Replying to <a href="{child_profile_view}">@{twoot_parent}</a></span>
         '''.format(child_profile_view=reverse('profile_view', kwargs={'username':twoot.parent.author.username}), twoot_parent=twoot.parent.author.username)                                                                                              
     
     response["twoot_html"] += '''<div class="twoot-content-true content-white">{content}</div>
@@ -254,7 +256,9 @@ def createReTwootAjax(self, pk, user):
                                 </div>'''.format(delete_url=reverse('deletepost', kwargs={'pk':twoot.pk}))
     response["twoot_html2"] =  '''<div class="twoot-button-inner-div">
                                     <a href="{create_comment_url}" class="twoot-button"><i class='bx bx-conversation'></i></a>
-                                    </div>'''.format(create_comment_url=reverse('create_comment_view', kwargs={'pk':twoot.pk}))
+                                    <span class="total-retwoots" data-id="comment_count_{pk}">{get_descendant_count}</span>
+                                    </div>'''.format(create_comment_url=reverse('create_comment_view', kwargs={'pk':twoot.pk}),
+                                                     get_descendant_count=twoot.get_descendant_count(), pk=twoot.pk)
 
     response["twoot_html_retwoot"] = '''<div class="twoot-button-inner-div">
                                     <button class="retwoot-button green-unclicked twoot-button" type="submit" data-id="{pk}" data-status="not_retwooted" name="retwootbutton"><i class='jam jam-refresh-reverse'></i></button>

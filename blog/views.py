@@ -316,6 +316,8 @@ class TwootDetailView(LoginRequiredMixin, View):
     def get(self, request, pk, *args, **kwargs):
         context = {}
         twoot = Twoot.objects.get(pk=pk) #Get the parent twoot.
+        twoot.is_liked = True if Like.objects.filter(liker=request.user, twoot=twoot).exists() else False
+        twoot.is_retwooted = True if ReTwoot.objects.filter(author=request.user, twoots=twoot).exists() else False
         twoots = Twoot.objects.filter(parent=twoot).order_by('-time_posted')
         getLikesReTwoots(self, request, twoots)
 

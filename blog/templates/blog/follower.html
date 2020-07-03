@@ -16,7 +16,7 @@
         {{ title }}
     </div>
 </div>
-
+{% csrf_token %}
 <div class="follow-wrapper">
     {% for f in follow %}
     <div  data-url="{% url 'profile_view' f.username %}" class="follow-inner divgotourl">
@@ -46,16 +46,17 @@
 
 {% block javascript %}
 <script>
+    var token = "{{ request.COOKIES.csrftoken }}";
 //Follow button implementation. csrf is not enabled.
     $(".follow-button").each( function() {
         var this_button = $(this);
         this_button.click( function(){
-            var token = "{{csrf_token}}";
             $.ajax({
                 type: "POST",
                 url: '{{ request.get_full_path }}',
                 data: {"type" : "follow-button",
-                        "user_in_question" : this_button.attr('data-user')},
+                        "user_in_question" : this_button.attr('data-user'),
+                        "csrfmiddlewaretoken" : token},
                 success: function(data){
                     if(data == "unfollowed"){
                         this_button.text("Follow");

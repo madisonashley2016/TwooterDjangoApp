@@ -13,7 +13,6 @@
 <div class="login-wrapper-div twoot-list">
 
     <form class="flex-form-login" method='POST' enctype="multipart/form-data">
-
         {% csrf_token %}
         {{ form.non_field_errors }}
         <label for="{{ form.username.id_for_label }}">Username</label>

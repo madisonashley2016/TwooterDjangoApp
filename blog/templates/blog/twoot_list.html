@@ -4,6 +4,7 @@
 
 {% if twoots %}
 {% if request.is_ajax %}{% paginate 20 twoots %}{% endif %}
+    {% csrf_token %}
     {% for twoot in twoots %}
     {% if twoot.twoots %}
     <div data-url="{% url 'twoot_detail_view' pk=twoot.twoots.pk %}" data-twoot-id="retwoot_{{twoot.pk}}" class="twoot divgotourl">
@@ -44,14 +45,12 @@
 
                     <div class="twoot-button-inner-div">
                         <a href="{% url 'create_comment_view' pk=twoot.twoots.pk %}" class="twoot-button"><i class='bx bx-conversation'></i></a>
+                        <span class="total-retwoots" data-id="comment_count_{{twoot.twoots.pk}}">{{twoot.twoots.get_descendant_count}}</span>
                     </div>
                 
                     <div class="twoot-button-inner-div">
                         {% csrf_token %}
-                        <input type="hidden" name="querypost" value="{{ query }}">
-                        <input type="hidden" name="relatedtwoot" value="{{ twoot.twoots.pk }}">
                         {% if twoot.twoots.is_retwooted %}
-
                         <button class="retwoot-button green twoot-button" type="submit" data-id="{{twoot.twoots.pk}}" data-status="retwooted"
                         name="retwootbutton"><i class='jam jam-refresh-reverse'></i></button>
 
@@ -117,6 +116,7 @@
                     <!--Comment Button-->
                     <div class="twoot-button-inner-div">
                         <a href="{% url 'create_comment_view' pk=twoot.pk %}" class="twoot-button"><i class='bx bx-conversation'></i></a>
+                        <span class="total-retwoots" data-id="comment_count_{{twoot.pk}}">{{twoot.get_descendant_count}}</span>
                     </div>
                     <!--Retwoot Button-->
                     <div class="twoot-button-inner-div">

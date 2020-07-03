@@ -166,12 +166,13 @@ EMAIL_HOST_USER = 'madisonashley2016@gmail.com'
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Twooter Admin <noreply@twooter.com>'
+DEFAULT_FROM_EMAIL = '"Twooter Admin" <noreply@twooter.com>'
 
 
 #HTTPS
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True #Added this to try to get password reset to work...we shall see...
 
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url

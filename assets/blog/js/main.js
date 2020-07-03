@@ -213,6 +213,13 @@ $(document).ready(function(){
             var profile_replies_list = "#replies_view-twoot-list-id-" + data.sender_username;
             $(profile_replies_list).prepend(data.twoot_html); //Append to senders profile replies
             $("#comments-twoot-list-id-" + data.parent_pk).prepend(data.twoot_html); //append to comments.
+            //find all spans with comment_count_parent_pk and incremenet them up by one.
+            var comment_count_pk = "comment_count_" + data.parent_pk;
+            $("span[data-id="+comment_count_pk+"]").each( function() {
+                var count_int = parseInt($(this).text());
+                count_int += 1;
+                $(this).text(count_int);
+            });
             if(data.me){
                 window.location = document.referrer;
             }

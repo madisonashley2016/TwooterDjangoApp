@@ -56,30 +56,27 @@
 
         <div class="detail-twoot-button-inner-div">
             <a href="{% url 'create_comment_view' pk=twoot.pk %}" class="twoot-button"><i class='bx bx-conversation'></i></a>
+            <span class="total-retwoots" data-id="comment_count_{{twoot.pk}}">{{twoot.get_descendant_count}}</span>
         </div>
     
         <div class="detail-twoot-button-inner-div">
-            <input type="hidden" name="querypost" value="{{ query }}">
-            <input type="hidden" name="relatedtwoot" value="{{ twoot.pk }}">
-            <!--Also you can fix this here..make it cleaner code wise...-->
             {% if twoot.is_retwooted %}
-            <button class="green twoot-button" type="submit" name="retwootbutton"><i class='jam jam-refresh-reverse'></i></button>
-            <span class="green-no-hover">{{ twoot.total_retwoots }}</span>
+            <button class="retwoot-button green twoot-button" type="submit" data-id="{{twoot.pk}}" data-status="retwooted" name="retwootbutton"><i class='jam jam-refresh-reverse'></i></button>
+            <span class="total-retwoots green-no-hover">{{ twoot.total_retwoots }}</span>
             {% else %}
-            <button class="green-unclicked twoot-button" type="submit" name="retwootbutton"><i class='jam jam-refresh-reverse'></i></button>
-            {{ twoot.total_retwoots }}
+            <button class="retwoot-button green-unclicked twoot-button" type="submit" data-id="{{twoot.pk}}" data-status="not_retwooted" name="retwootbutton"><i class='jam jam-refresh-reverse'></i></button>
+            <span class="total-retwoots">{{ twoot.total_retwoots }}</span>
             {% endif %}
         </div>
         <div class="detail-twoot-button-inner-div">
             {% if twoot.is_liked %}
             <button class="like-button red twoot-button" type="submit" data-status="liked" data-id="{{twoot.pk}}" name="likebutton"><i class='bx bxs-heart'></i></button>
-            <span class="red-no-hover">{{ twoot.total_likes }}</span>
+            <span class="total-retwoots red-no-hover">{{ twoot.total_likes }}</span>
             {% else %}
             <button class="like-button red-unclicked twoot-button" type="submit" data-status="not_liked" data-id="{{twoot.pk}}" name="likebutton"><i class='bx bx-heart'></i></button>
-            <span>{{ twoot.total_likes }}</span>
+            <span class="total-retwoots">{{ twoot.total_likes }}</span>
             {% endif %}
         </div>
-
         
     </div>
 

@@ -244,7 +244,7 @@
 
 /* For the message input */
 #message-send-container-outer {
-    height: 50px;
+    height: 60px;
     position: sticky;
     bottom: 0;
     display: flex;
@@ -260,15 +260,14 @@
 }
 .message-send {
     color: white;
-    border: 1px solid var(--twooter-blue-dark);
+    border: 1.5px solid var(--twooter-blue-dark);
     border-radius: 25px;
-
     width: 100%; height: 100%;
-    padding: 3px 10px;
+    padding: 3px 40px 3px 10px;
 }
 .message-emoji-button {
     position: absolute;
-    right: 7px; top: 0;
+    right: 7px; top: 4%;
     color: var(--twooter-blue-dark);
     font-size: 20px;
 

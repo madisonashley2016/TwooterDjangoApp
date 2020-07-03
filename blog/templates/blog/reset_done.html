@@ -9,7 +9,7 @@
 <div class="h1div">
     <h1 class="h1div-element">Password Reset Complete</h1>
 </div>
-
+{% csrf_token %}
 <div class="login-wrapper-div twoot-list">
     <h1 class="password-reset-h1">Password Reset has been completed.</h1>
     <span class="password-reset-span">Your password has been reset. <a class="content-author" href="{% url 'login' %}">You may now log in.</a></span>
