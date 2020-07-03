@@ -18,11 +18,13 @@ $(document).ready(function(){
         paginateOnScroll: true,
         paginateOnScrollMargin: 20,
         onCompleted: function(context, fragment) {
-            $(".divgotourl").off('click').on('click', function(e){
-                if(!$(e.target).is("button") && !$(e.target).is("i") && !$(e.target).is("a")){
-                    window.location = $(this).attr("data-url");
-                }
-             });
+            $(".divgotourl").each(function(){
+                $(this).off('click').on("click", function(e){
+                    if(!$(e.target).is("button") && !$(e.target).is("i") && !$(e.target).is("a")){
+                        window.location = $(this).attr("data-url");
+                    }
+                });
+            });
             
             //When like button is clicked, send to server the clicked button. and its state.
             //off-click because need to turn off original event when paginate is called.
@@ -51,11 +53,14 @@ $(document).ready(function(){
         }
     });
     //When you click this bit, it goes to url. Makes divs able to be urls.
-    $(".divgotourl").click(function(e){
-        if(!$(e.target).is("button") && !$(e.target).is("i") && !$(e.target).is("a")){
-            window.location = $(this).attr("data-url");
-        }
-     });
+    $(".divgotourl").each(function(){
+        $(this).click(function(e){
+            if(!$(e.target).is("button") && !$(e.target).is("i") && !$(e.target).is("a")){
+                window.location = $(this).attr("data-url");
+            }
+         });
+    });
+    
     /*
     //This is just so that when you refresh the page it saves the location that you stopped at. 
     var scrollpos = localStorage.getItem('scrollpos'); //Get the last scroll pos.
@@ -289,10 +294,12 @@ $(document).ready(function(){
                 }));
                 
             });
-            $(".divgotourl").off('click').on('click', function(e){
-                if(!$(e.target).is("button") && !$(e.target).is("i") && !$(e.target).is("a")){
-                    window.location = $(this).attr("data-url");
-                }
+            $(".divgotourl").each(function(){
+                $(this).off('click').on("click", function(e){
+                    if(!$(e.target).is("button") && !$(e.target).is("i") && !$(e.target).is("a")){
+                        window.location = $(this).attr("data-url");
+                    }
+                });
             });
         }
        
