@@ -172,7 +172,7 @@ DEFAULT_FROM_EMAIL = '"Twooter Admin" <noreply@twooter.com>'
 #HTTPS
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-SECURE_PROXY_SSL_HEADER = ('X_FORWARDED_PROTO', 'https')
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True #Added this to try to get password reset to work...we shall see...
 
 # Heroku: Update database configuration from $DATABASE_URL.
