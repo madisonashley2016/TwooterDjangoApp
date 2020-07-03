@@ -125,4 +125,13 @@ $(".follow-button").each( function() {
     });
 });
 
+//When you click this bit, it goes to url. Makes divs able to be urls.
+$(".divgotourl").each(function(){
+        $(this).click(function(e){
+            if(!$(e.target).is("button") && !$(e.target).is("i") && !$(e.target).is("a")){
+                window.location = $(this).attr("data-url");
+            }
+         });
+    });
+
 </script>
