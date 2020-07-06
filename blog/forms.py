@@ -32,8 +32,8 @@ class CreateTwootForm(forms.ModelForm):
         fields = ['content', 'image_content']
 
 class CreateUserForm(UserCreationForm):
-    email = forms.EmailField()
-    display_name = forms.CharField(max_length=500)
+    email = forms.EmailField(required=False)
+    display_name = forms.CharField(max_length=500, required=False)
     display_blurb = forms.CharField(max_length=10, required=False)
     location = forms.CharField(max_length=30, required=False)
     birth_date = forms.DateField(widget=DateInput(), required=False)
@@ -51,7 +51,7 @@ class EditUserForm(forms.ModelForm):
         fields = ['email']
 
 class EditProfileForm(forms.ModelForm):
-    display_name = forms.CharField(max_length=500)
+    display_name = forms.CharField(max_length=500, required=False)
     display_blurb = forms.CharField(max_length=10, required=False)
     location = forms.CharField(max_length=30, required=False)
     birth_date = forms.DateField(widget=DateInput(format=('%Y-%m-%d'), attrs={'class':'searchbar-create-account searchbar', 'type':'date'}), required=False)

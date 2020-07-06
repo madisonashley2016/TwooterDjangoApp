@@ -8,6 +8,16 @@
     --twooter-blue-light: #1A91DA;
     --search-background: #253341;
 }
+/*:root {
+    --main-background: #021f1e;
+    --twoot-hover: #092c2c;
+    --header-border: #22504c;
+    --normal-border: #133d36;
+    --twooter-blue-dark: #359e76;
+    --twooter-blue-light: #359e76;
+    --content-text: #294742;
+    --search-background: #092c27;
+}*/
 
 * {
     margin: 0;
@@ -18,7 +28,6 @@
     vertical-align: baseline;
     background: transparent;
     box-sizing: border-box;
-    /*font-family: 'Audiowide', 'PT Sans', sans-serif;*/
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 

@@ -22,7 +22,7 @@ class Follower(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    display_name = models.CharField(max_length=500)
+    display_name = models.CharField(max_length=500, blank=True, null=True)
     display_blurb = models.CharField(max_length=10, blank=True, null=True)
     location = models.CharField(max_length=30, blank=True, null=True)
     birth_date = models.DateField(null=True, blank=True)

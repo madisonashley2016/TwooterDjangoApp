@@ -22,6 +22,22 @@
     <label for="{{ field.id_for_label }}">{{field.label}}</label>
     <br>
     <input class="searchbar-create-account searchbar" id="{{ field.id_for_label }}" name="{{field.html_name}}" type="date"/>
+    {% elif field.html_name == "display_blurb" %}
+    <label for="{{ field.id_for_label }}">{{field.label}}</label>
+    <br>
+    <input class="searchbar-create-account searchbar" id="{{ field.id_for_label }}" maxlength="10" name="{{field.html_name}}"  placeholder="{{field.html_name}}" type="text"/>
+    {% elif field.html_name == "username" %}
+    <label for="{{ field.id_for_label }}">*{{field.label}}</label>
+    <br>
+    <input class="searchbar-create-account searchbar" id="{{ field.id_for_label }}" name="{{field.html_name}}"  placeholder="{{field.html_name}}" type="text"/>
+    {% elif field.html_name == "password1" %}
+    <label for="{{ field.id_for_label }}">*{{field.label}}</label>
+    <br>
+    <input class="searchbar-create-account searchbar" id="{{ field.id_for_label }}" name="{{field.html_name}}"  placeholder="password" type="text"/>
+    {% elif field.html_name == "password2" %}
+    <label for="{{ field.id_for_label }}">*{{field.label}}</label>
+    <br>
+    <input class="searchbar-create-account searchbar" id="{{ field.id_for_label }}" name="{{field.html_name}}"  placeholder="confirm password" type="text"/>
     {% else %}
     <label for="{{ field.id_for_label }}">{{field.label}}</label>
     <br>
@@ -41,7 +57,43 @@
     
 </div>
 <br>
-    <span style="margin-left: 15px;" class="content"><a class="content-author" href="{% url 'login' %}">Login</a> or <a class="content-author" href="#">Reset Password</a></span>
+    <span style="margin-left: 15px; margin-bottom: 300px;" class="content"><a class="content-author" href="{% url 'login' %}">Login</a> or <a class="content-author" href="{% url 'password_reset' %}">Reset Password</a></span>
 
     
+{% endblock %}
+
+{% block javascript %}
+<script>
+    //This is so if you mess up ur sign in you don't have to re-input all of ur info.
+    window.onbeforeunload = function() {
+        sessionStorage.setItem("username", $("input[name='username']").val());
+        sessionStorage.setItem("email", $("input[name='email']").val());
+        sessionStorage.setItem("display_name", $("input[name='display_name']").val());
+        sessionStorage.setItem("display_blurb", $("input[name='display_blurb']").val());
+        sessionStorage.setItem("location", $("input[name='location']").val());
+    }
+
+    window.onload = function() {
+        var username = sessionStorage.getItem("username");
+        var email = sessionStorage.getItem("email");
+        var display_name = sessionStorage.getItem("display_name");
+        var display_blurb = sessionStorage.getItem("display_blurb");
+        var location = sessionStorage.getItem("location");
+        if (username !== null){
+            $("input[name='username']").val(username);
+        }
+        if (email !== null){
+            $("input[name='email']").val(email);
+        }
+        if (display_name !== null){
+            $("input[name='display_name']").val(display_name);
+        }
+        if (display_blurb !== null){
+            $("input[name='display_blurb']").val(display_blurb);
+        }
+        if (location !== null){
+            $("input[name='location']").val(location);
+        }
+    }
+</script>
 {% endblock %}

@@ -1,69 +1,4 @@
-:root {
-    --main-background: #15202B;
-    --header-border: #3D5466;
-    --normal-border: #38444D;
-    --twoot-hover: #192734;
-    --content-text: #5F6E7C;
-    --twooter-blue-dark: #1DA1F2;
-    --twooter-blue-light: #1A91DA;
-    --search-background: #253341;
-}
 
-/*Pagination buttons stuff*/
-.paginaton {
-    list-style:none;
-    display: flex;
-    margin: 2%;
-}
-
-.paginaton li a, span{
-    text-decoration: none;
-}
-
-.enabled {
-    color: white;
-    border: 1px solid var(--normal-border);
-    border-radius: 5%;
-    padding: 5px 10px;
-    margin: 5px;
-    transition: .25s;
-}
-
-.enabled:hover {
-    color: var(--twooter-blue-dark);
-    background: var(--normal-border);
-}
-.disabled {
-    color: var(--content-text);
-    opacity: 50%;
-    border: 1px solid var(--normal-border);
-    border-radius: 5%;
-    padding: 5px 10px;
-    margin: 5px;
-    transition: .25s;
-}
-
-.disabled:hover {
-    color: var(--content-text);
-}
-
-.current {
-    color: var(--twooter-blue-dark);
-    background: var(--normal-border);
-    font-weight: bold;
-    font-size: 30px;
-    border: 1px solid var(--normal-border);
-    border-radius: 5%;
-    padding: 5px 10px;
-    margin: 5px;
-    transition: .25s;
-
-}
-.current:hover {
-    color: #3484ff;
-
-}
-/* end pagination button stuff */
 .twoot-button-inner-div {
     flex: 1;
     display: flex;
@@ -150,7 +85,7 @@
 
 .searchbar {
     background: var(--search-background);
-    color: var(--content-text);
+    color: white;
 
     max-width: 500px;
     width: 100%;
